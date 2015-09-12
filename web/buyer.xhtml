@@ -9,22 +9,74 @@
         <h:outputStylesheet name="css/default.css" />
     </h:head>
     <h:body>
-        <p:panel>
-            <p:commandLink value="Exit" />
-        </p:panel>
+        <h:panelGrid id="headerGrid" columns="2" width="100%" >
+            <p:panel>
+                <h:form>            
+                    <p:commandButton value="Выход" action="#{loginBean.logout()}" title="Click to quit Go Farmer"/>
+                </h:form>
+            </p:panel>
+            <p:panel>
+                <p:ajaxStatus style="display:block; width: 200px">
+                    <f:facet name="default">
+                        <h:outputText value="" />
+                    </f:facet>
+                    <f:facet name="start">
+                        <h:outputText value="Executing request" />
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" onerror="PF('errorDialog').hide()"/>
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                
+                    <p:graphicImage value="/images/loading.gif"/>
+                </p:dialog>
+                <p:dialog widgetVar="errorDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                
+                    <p:outputLabel value="Ошибка! Повторите запрос снова."/>
+                </p:dialog>
+            </p:panel>                
+        </h:panelGrid> 
         <p:separator/>
         <p:panel header="Hello Buyer" footer="Go Farming">
             <p:tabView id="mainTabView">
                 <p:tab title="Offers">
-                    <h:form>
-                        <p:commandButton value="Offers" />
-                    </h:form>
+                    <p:commandButton value="Offers"
+                                     action="#{farmingBean.fetchOffers()}"
+                                     update=":mainTabView:offersTableForm"/>
                     <p:separator/>
-                    <p:dataTable paginator="true" resizableColumns="true" rows="10" 
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                 rowsPerPageTemplate="5,10,15,25,50">
-
-                    </p:dataTable>
+                    <h:form id="offersTableForm">
+                        <p:dataTable paginator="true" resizableColumns="true" rows="10"
+                                     var="offer" value="#{farmingBean.offerList}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="5,10,15,25,50">
+                            <f:facet name="header">
+                                <h:outputText value="Offers"/>
+                            </f:facet>
+                            <p:column headerText="Name" sortBy="#{offer.productName}">
+                                <p:outputLabel value="#{offer.productName}"/>
+                            </p:column>
+                            <p:column headerText="Price" sortBy="#{offer.price}">
+                                <p:outputLabel value="#{offer.price} #{offer.currency}"/>
+                            </p:column>
+                            <p:column headerText="Location" sortBy="#{offer.location}">
+                                <p:outputLabel value="#{offer.location}"/>
+                            </p:column>
+                            <p:column headerText="Create date" sortBy="#{offer.createDate}">
+                                <p:outputLabel value="#{offer.createDate}"/>
+                            </p:column>
+                            <p:column headerText="End date" sortBy="#{offer.endDate}">
+                                <p:outputLabel value="#{offer.endDate}"/>
+                            </p:column>
+                            <p:column headerText="Status">
+                                <p:outputLabel value="#{farmingBean.offerStatusDescription(offer)}"/>
+                            </p:column>
+                            <p:column headerText="">
+                                <p:commandButton value="Notify" action="#{farmingBean.deleteOffer(offer)}"
+                                                 update=":mainTabView:offersTableForm"
+                                                 />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
                 </p:tab>
                 <p:tab title="Bids">
                     <p:commandButton value="Create bid" onclick="PF('addNewBidDialog').show()"/>
@@ -58,11 +110,11 @@
                             <p:column headerText="Status">
                                 <p:outputLabel value="#{buyerBean.bidStatusDescription(bid)}"/>
                             </p:column>
-                            <p:column headerText="Close">
+                            <p:column headerText="">
                                 <p:commandButton value="Close" action="#{buyerBean.closeBid(bid)}"
                                                  update=":mainTabView:bidsTableForm"/>
                             </p:column>
-                            <p:column headerText="Delete">
+                            <p:column headerText="">
                                 <p:commandButton value="Delete" action="#{buyerBean.deleteBid(bid)}"
                                                  update=":mainTabView:bidsTableForm"
                                                  disabled="#{bid.status != 1}"/>

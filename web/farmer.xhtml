@@ -64,29 +64,29 @@
                             <f:facet name="header">
                                 <h:outputText value="Offers"/>
                             </f:facet>
-                            <p:column headerText="Name">
+                            <p:column headerText="Name" sortBy="#{offer.productName}">
                                 <p:outputLabel value="#{offer.productName}"/>
                             </p:column>
-                            <p:column headerText="Price">
+                            <p:column headerText="Price" sortBy="#{offer.price}">
                                 <p:outputLabel value="#{offer.price} #{offer.currency}"/>
                             </p:column>
-                            <p:column headerText="Location">
+                            <p:column headerText="Location" sortBy="#{offer.location}">
                                 <p:outputLabel value="#{offer.location}"/>
                             </p:column>
-                            <p:column headerText="Create date">
+                            <p:column headerText="Create date" sortBy="#{offer.createDate}">
                                 <p:outputLabel value="#{offer.createDate}"/>
                             </p:column>
-                            <p:column headerText="End date">
+                            <p:column headerText="End date" sortBy="#{offer.endDate}">
                                 <p:outputLabel value="#{offer.endDate}"/>
                             </p:column>
                             <p:column headerText="Status">
                                 <p:outputLabel value="#{farmingBean.offerStatusDescription(offer)}"/>
                             </p:column>
-                            <p:column headerText="Close">
+                            <p:column headerText="">
                                 <p:commandButton value="Close" action="#{farmingBean.closeOffer(offer)}"
                                                  update=":mainTabView:offersTableForm"/>
                             </p:column>
-                            <p:column headerText="Delete">
+                            <p:column headerText="">
                                 <p:commandButton value="Delete" action="#{farmingBean.deleteOffer(offer)}"
                                                  update=":mainTabView:offersTableForm"
                                                  disabled="#{offer.status != 1}"/>
