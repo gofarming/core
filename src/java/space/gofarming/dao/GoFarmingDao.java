@@ -64,7 +64,7 @@ public class GoFarmingDao {
     public List<Offer> fetchOffers() {
         try {
             Session mySession = HibernateUtil.getSessionFactory().openSession();
-            Query q = mySession.createQuery("from Offer as o order by o.createDate");
+            Query q = mySession.createQuery("from Offer as o order by o.createDate desc");
             List<Offer> list = (List<Offer>) q.list();
             mySession.close();
             return list;
@@ -72,6 +72,32 @@ public class GoFarmingDao {
             LOG.log(Level.INFO, e.getMessage());
         }
         return null;
+    }
+
+    public void updateOffer(Offer offer) {
+        try {
+            Session mySession = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = mySession.beginTransaction();
+            mySession.update(offer);
+            tx.commit();
+            mySession.flush();
+            mySession.close();
+        } catch (Exception e) {
+            LOG.log(Level.INFO, e.getMessage());
+        }
+    }
+
+    public void deleteOffer(Offer offer) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = session.beginTransaction();
+            session.delete(offer);
+            tx.commit();
+            session.flush();
+            session.close();
+        } catch (Exception e) {
+            LOG.log(Level.INFO, e.getMessage());
+        }
     }
 
 }

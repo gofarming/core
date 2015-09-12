@@ -20,8 +20,9 @@
                         <p:commandButton value="Notifications" />
                     </h:form>
                     <p:separator/>
-                    <p:dataTable paginator="true" resizableColumns="true" rows="10"
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+                    <p:dataTable paginator="true" resizableColumns="true" rows="10" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="5,10,15,25,50">
 
                     </p:dataTable>
                 </p:tab>
@@ -34,9 +35,37 @@
                     <h:form id="offersTableForm">
                         <p:dataTable paginator="true" resizableColumns="true" rows="10"
                                      var="offer" value="#{farmingBean.offerList}"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-                            <p:column>
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="5,10,15,25,50">
+                            <f:facet name="header">
+                                <h:outputText value="Offers"/>
+                            </f:facet>
+                            <p:column headerText="Name">
                                 <p:outputLabel value="#{offer.productName}"/>
+                            </p:column>
+                            <p:column headerText="Price">
+                                <p:outputLabel value="#{offer.price} #{offer.currency}"/>
+                            </p:column>
+                            <p:column headerText="Location">
+                                <p:outputLabel value="${offer.location}"/>
+                            </p:column>
+                            <p:column headerText="Create date">
+                                <p:outputLabel value="#{offer.createDate}"/>
+                            </p:column>
+                            <p:column headerText="End date">
+                                <p:outputLabel value="#{offer.endDate}"/>
+                            </p:column>
+                            <p:column headerText="Status">
+                                <p:outputLabel value="#{farmingBean.offerStatusDescription(offer)}"/>
+                            </p:column>
+                            <p:column headerText="Close">
+                                <p:commandButton value="Close" action="#{farmingBean.closeOffer(offer)}"
+                                                 update=":mainTabView:offersTableForm"/>
+                            </p:column>
+                            <p:column headerText="Delete">
+                                <p:commandButton value="Delete" action="#{farmingBean.deleteOffer(offer)}"
+                                                 update=":mainTabView:offersTableForm"
+                                                 disabled="#{offer.status != 1}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>
@@ -49,19 +78,42 @@
                   header="Create new offer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
             <h:form id="executeForm">
                 <h:panelGrid columns="2" styleClass="panelGridNoBorder" >                                       
-                    <p:outputLabel for="productType" value="Product" />                    
-                    <p:selectOneMenu id="productType">
+                    <p:outputLabel for="productName" value="Product" />                    
+                    <p:selectOneMenu id="productName" value="#{farmingBean.productName}">
                         <f:selectItem itemLabel="Apple" itemValue="Apple"/>
                         <f:selectItem itemLabel="Appricot" itemValue="Appricot"/>
                         <f:selectItem itemLabel="Pear" itemValue="Pear"/>
                         <f:selectItem itemLabel="Ruspberry  " itemValue="Ruspberry"/>
                     </p:selectOneMenu>
-                    <p:outputLabel for="price" value="Price" />                    
-                    <p:inputText id="price" />
-                    <p:outputLabel for="volue" value="Volume" />                    
-                    <p:inputText id="volue"/>
+
+                    <p:outputLabel for="offerDescription" value="Description" />                    
+                    <p:inputTextarea cols="50" rows="5" 
+                                     id="offerDescription" value="#{farmingBean.offerDescription}"/>
+
+                    <p:outputLabel for="offerPrice" value="Price" />                    
+                    <p:inputText id="offerPrice" value="#{farmingBean.offerPrice}"/>
+
+                    <p:outputLabel for="offerCurrency" value="Currency" />                    
+                    <p:selectOneMenu id="offerCurrency" value="#{farmingBean.offerCurrency}">
+                        <f:selectItem itemLabel="USD" itemValue="USD"/>
+                        <f:selectItem itemLabel="EUR" itemValue="EUR"/>
+                        <f:selectItem itemLabel="RUB" itemValue="RUB"/>
+                        <f:selectItem itemLabel="KGZ" itemValue="KGZ"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="offerVolume" value="Volume" />                    
+                    <p:inputText id="offerVolume" value="#{farmingBean.offerVolume}"/>
+
+                    <p:outputLabel for="offerVolumeType" value="Volume type" />                    
+                    <p:inputText id="offerVolumeType" value="#{farmingBean.offerVolumeType}"/>
+
+                    <p:outputLabel for="offerLocation" value="Location" />                    
+                    <p:inputText id="offerLocation" value="#{farmingBean.offerLocation}"/>
+
                     <p:outputLabel for="dateUntil" value="Date until" />                    
-                    <p:calendar id="dateUntil"/>
+                    <p:calendar id="dateUntil" showOn="button" showButtonPanel="true"
+                                value="#{farmingBean.offerEndDate}"
+                                pattern="MM/dd/yyyy" />
                     <p:commandButton onclick="PF('addNewOfferDialog').hide()" 
                                      action="#{farmingBean.addNewOffer()}"
                                      update=":mainTabView:offersTableForm"

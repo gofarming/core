@@ -8,7 +8,9 @@ package space.gofarming.bean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -30,9 +32,34 @@ public class FarmingBean implements Serializable {
     private GoFarmingDao dao;
     private List<Bid> bidList;
     private List<Offer> offerList;
+    private Date offerEndDate;
+    private Float offerPrice;
+    private Integer offerVolume;
+    private String offerVolumeType;
+    private String offerCurrency;
+    private String offerLocation;
+    private String offerDescription;
+
+    private final Map<Integer, String> offerStatusMap = new HashMap<>();
+
+    {
+        offerStatusMap.put(1, "NEW");
+        offerStatusMap.put(2, "CLOSED");
+        offerStatusMap.put(3, "IN PROGRESS");
+    }
+
+    public String offerStatusDescription(Offer offer) {
+        if (offerStatusMap.containsKey(offer.getStatus())) {
+            return offerStatusMap.get(offer.getStatus());
+        } else {
+            return "UNKNOWN";
+        }
+    }
 
     @PostConstruct
     public void init() {
+
+//        this.offerStatusMap = new HashMap<>();
         this.dao = new GoFarmingDao();
         this.bidList = new ArrayList<>();
         this.offerList = new ArrayList<>();
@@ -40,6 +67,14 @@ public class FarmingBean implements Serializable {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public Date getUntilDate() {
+        return untilDate;
     }
 
     public void setUntilDate(Date untilDate) {
@@ -65,15 +100,81 @@ public class FarmingBean implements Serializable {
         return offerList;
     }
 
+    public String getOfferLocation() {
+        return offerLocation;
+    }
+
+    public void setOfferLocation(String offerLocation) {
+        this.offerLocation = offerLocation;
+    }
+
+    public String getOfferDescription() {
+        return offerDescription;
+    }
+
+    public void setOfferDescription(String offerDescription) {
+        this.offerDescription = offerDescription;
+    }
+
     public void addNewBid() {
         Bid bid = new Bid();
         bid.setProductName("pn");
         dao.saveBid(bid);
     }
 
+    public String getOfferCurrency() {
+        return offerCurrency;
+    }
+
+    public void setOfferCurrency(String offerCurrency) {
+        this.offerCurrency = offerCurrency;
+    }
+
+    public String getOfferVolumeType() {
+        return offerVolumeType;
+    }
+
+    public void setOfferVolumeType(String offerVolumeType) {
+        this.offerVolumeType = offerVolumeType;
+    }
+
+    public Integer getOfferVolume() {
+        return offerVolume;
+    }
+
+    public void setOfferVolume(Integer offerVolume) {
+        this.offerVolume = offerVolume;
+    }
+
+    public Float getOfferPrice() {
+        return offerPrice;
+    }
+
+    public void setOfferPrice(Float offerPrice) {
+        this.offerPrice = offerPrice;
+    }
+
+    public Date getOfferEndDate() {
+        return offerEndDate;
+    }
+
+    public void setOfferEndDate(Date offerEndDate) {
+        this.offerEndDate = offerEndDate;
+    }
+
     public void addNewOffer() {
         Offer offer = new Offer();
-        offer.setProductName("pn");
+        offer.setProductName(productName);
+        offer.setCreateDate(new Date());
+        offer.setCurrency(offerCurrency);
+        offer.setEndDate(offerEndDate);
+        offer.setFarmerId("farmer");
+        offer.setLocation(offerLocation);
+        offer.setPrice(offerPrice);
+        offer.setVolume(offerVolume);
+        offer.setVolumeType(offerVolumeType);
+        offer.setDescription(offerDescription);
+        offer.setStatus(1);
         dao.saveOffer(offer);
         fetchOffers();
     }
@@ -84,6 +185,17 @@ public class FarmingBean implements Serializable {
 
     public void fetchOffers() {
         this.offerList = dao.fetchOffers();
+    }
+
+    public void closeOffer(Offer offer) {
+        offer.setStatus(2);
+        offer.setCloseDate(new Date());
+        dao.updateOffer(offer);
+    }
+    
+    public void deleteOffer(Offer offer) {
+        dao.deleteOffer(offer);
+        fetchOffers();
     }
 
 }

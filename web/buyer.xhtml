@@ -24,8 +24,8 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Bids">
-                    <p:commandButton value="Create offer" onclick="PF('addNewBidDialog').show()"/>
-                    <p:commandButton value="My offers"/>
+                    <p:commandButton value="Create bid" onclick="PF('addNewBidDialog').show()"/>
+                    <p:commandButton value="My bids"/>
                     <p:separator/>
                     <p:dataTable paginator="true" resizableColumns="true" rows="10"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
@@ -37,7 +37,7 @@
 
         <p:dialog id="addNewBidDialog" 
                   widgetVar="addNewBidDialog" hideEffect="fold" position="center" dynamic="true"
-                  header="Create new offer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+                  header="Create new bid" resizable="false" modal="true" closeOnEscape="true" closable="true" >
             <h:form id="executeForm">
                 <h:panelGrid columns="2" styleClass="panelGridNoBorder" >                                       
                     <p:outputLabel for="productType" value="Product" />                    

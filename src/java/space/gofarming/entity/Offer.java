@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,7 +22,7 @@ import javax.persistence.TemporalType;
  * @author aida
  */
 @Entity
-@Table(name="OFFER")
+@Table(name = "OFFER")
 public class Offer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,16 +31,21 @@ public class Offer implements Serializable {
     @SequenceGenerator(name = "offer_seq", sequenceName = "offer_seq", allocationSize = 1, initialValue = 1)
     private Long id;
     private String productName;
+    @Lob
+    private String description;
     private Integer volume;
-    private Integer volumeType;
+    private String volumeType;
     private Float price;
     private String currency;
     private String location;
-    private String fermerId;
+    private String farmerId;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
+    private Integer status;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date closeDate;
 
     public Long getId() {
         return id;
@@ -47,6 +53,14 @@ public class Offer implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getCloseDate() {
+        return closeDate;
+    }
+
+    public void setCloseDate(Date closeDate) {
+        this.closeDate = closeDate;
     }
 
     public String getProductName() {
@@ -57,6 +71,14 @@ public class Offer implements Serializable {
         this.productName = productName;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Integer getVolume() {
         return volume;
     }
@@ -65,11 +87,11 @@ public class Offer implements Serializable {
         this.volume = volume;
     }
 
-    public Integer getVolumeType() {
+    public String getVolumeType() {
         return volumeType;
     }
 
-    public void setVolumeType(Integer volumeType) {
+    public void setVolumeType(String volumeType) {
         this.volumeType = volumeType;
     }
 
@@ -97,12 +119,12 @@ public class Offer implements Serializable {
         this.location = location;
     }
 
-    public String getFermerId() {
-        return fermerId;
+    public String getFarmerId() {
+        return farmerId;
     }
 
-    public void setFermerId(String fermerId) {
-        this.fermerId = fermerId;
+    public void setFarmerId(String farmerId) {
+        this.farmerId = farmerId;
     }
 
     public Date getCreateDate() {
@@ -119,6 +141,14 @@ public class Offer implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
 }
