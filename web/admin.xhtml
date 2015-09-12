@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Hello Farmer</title>
+        <h:outputStylesheet name="css/default.css" />
+    </h:head>
+    <h:body>
+        <p:panel>
+            <p:commandLink value="Exit"/>
+        </p:panel>
+        <p:separator/>
+        <p:tabView>
+            <p:tab title="Farmers">
+                <p:commandButton value="View farmers"/>
+            </p:tab>
+            <p:tab title="Buyers">
+                <p:commandButton value="View Buyers"/>
+            </p:tab>
+            <p:tab title="Statistics">
+                <p:commandButton value="View Buyers"/>
+            </p:tab>
+            <p:tab title="Logs">
+                <p:commandButton value="View Buyers"/>
+            </p:tab>
+        </p:tabView>
+
+    </h:body>
+</html>
+

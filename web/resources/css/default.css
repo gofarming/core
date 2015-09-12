@@ -1,0 +1,51 @@
+body {
+    background: #f1f1f1;                    
+    font-family: Helvetica, sans-serif !important;    
+    font-size: 75% !important;             
+}
+.ui-panel-grid td {
+    padding: 1px;
+    font-family: Helvetica, sans-serif !important;
+}
+
+.ui-panel-grid {
+    padding: 1px !important;
+    font-family: Helvetica, sans-serif !important;
+}
+
+/*.ui-panelgrid {
+    padding: 0px;
+}*/
+
+.panelGridNoBorder tr, .panelGridNoBorder td {
+    border: none !important;
+}
+
+/*.ui-widget, .ui-widget .ui-widget .ui-panelgrid {
+    font-size: 80%;
+}*/
+
+.fixed-size {
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+.ui-datatable tbody td.wrap {
+    white-space: normal;
+}
+
+.foo td {
+    vertical-align: top;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color:red;
+}
+
+.ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover {
+    background: #f1f1f1;
+}

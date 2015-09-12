@@ -4,6 +4,34 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-      
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+
+        <property name="hibernate.connection.url">jdbc:postgresql://46.101.134.118:5432/gofarming</property> 
+        <!--<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/gofarming</property>--> 
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">postgres</property>
+
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.use_sql_comments">false</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.format_sql">false</property>
+        <property name="hibernate.generate_statistics">false</property>
+        <property name="hibernate.max_fetch_depth">20</property>                 
+        
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <property name="hibernate.c3p0.idle_test_period">30</property>
+        <property name="hibernate.c3p0.min_size">1</property>
+        <property name="hibernate.c3p0.max_size">4</property>
+        <property name="hibernate.c3p0.max_statements">20</property>
+        <property name="hibernate.c3p0.timeout">60</property>
+        <property name="hibernate.c3p0.privilegeSpawnedThreads">true</property>    
+        <property name="hibernate.c3p0.contextClassLoaderSource">library</property>      
+        <!--<property name="hibernate.c3p0.preferredTestQuery">SELECT 1 FROM DUAL</property>-->      
+        <!--<property name="hibernate.c3p0.testConnectionOnCheckout">true</property>-->      
+        
+        <mapping class="space.gofarming.entity.Bid"/>
+        <mapping class="space.gofarming.entity.Farmer"/>
+        <mapping class="space.gofarming.entity.Buyer"/>
     </session-factory>
 </hibernate-configuration>
