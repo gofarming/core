@@ -39,6 +39,7 @@ public class FarmingBean implements Serializable {
     private String offerCurrency;
     private String offerLocation;
     private String offerDescription;
+    private Offer selectedOffer;
 
     private final Map<Integer, String> offerStatusMap = new HashMap<>();
 
@@ -63,6 +64,14 @@ public class FarmingBean implements Serializable {
         this.dao = new GoFarmingDao();
         this.bidList = new ArrayList<>();
         this.offerList = new ArrayList<>();
+    }
+
+    public Offer getSelectedOffer() {
+        return selectedOffer;
+    }
+
+    public void setSelectedOffer(Offer selectedOffer) {
+        this.selectedOffer = selectedOffer;
     }
 
     public void setProductName(String productName) {
@@ -192,10 +201,20 @@ public class FarmingBean implements Serializable {
         offer.setCloseDate(new Date());
         dao.updateOffer(offer);
     }
-    
+
     public void deleteOffer(Offer offer) {
         dao.deleteOffer(offer);
         fetchOffers();
     }
+
+    public void fetchNotifications() {
+
+    }
+
+    public void selectOffer(Offer offer) {
+        this.selectedOffer = offer;
+    }
+    
+    
 
 }

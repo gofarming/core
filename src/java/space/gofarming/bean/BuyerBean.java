@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import space.gofarming.dao.GoFarmingDao;
 import space.gofarming.entity.Bid;
+import space.gofarming.entity.Notification;
 
 /**
  *
@@ -160,6 +161,12 @@ public class BuyerBean implements Serializable {
         bid.setStatus(1);
         dao.saveBid(bid);
         fetchBids();
+    }
+    
+    public void notifyFarmer() {
+        Notification n = new Notification();
+        dao.addNotification(n);
+        
     }
 
     public void fetchBids() {

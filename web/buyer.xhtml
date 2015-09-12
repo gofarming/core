@@ -12,7 +12,7 @@
         <h:panelGrid id="headerGrid" columns="2" width="100%" >
             <p:panel>
                 <h:form>            
-                    <p:commandButton value="Выход" action="#{loginBean.logout()}" title="Click to quit Go Farmer"/>
+                    <p:commandButton value="Logout" action="#{loginBean.logout()}" title="Click to quit Go Farmer"/>
                 </h:form>
             </p:panel>
             <p:panel>
@@ -45,37 +45,29 @@
                                      update=":mainTabView:offersTableForm"/>
                     <p:separator/>
                     <h:form id="offersTableForm">
-                        <p:dataTable paginator="true" resizableColumns="true" rows="10"
-                                     var="offer" value="#{farmingBean.offerList}"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                     rowsPerPageTemplate="5,10,15,25,50">
+                        <p:dataGrid 
+                            var="offer" value="#{farmingBean.offerList}"
+                            columns="3" layout="grid"
+                            rows="12" paginator="true" id="offers"
+                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                            rowsPerPageTemplate="6,12,16">
                             <f:facet name="header">
                                 <h:outputText value="Offers"/>
                             </f:facet>
-                            <p:column headerText="Name" sortBy="#{offer.productName}">
-                                <p:outputLabel value="#{offer.productName}"/>
-                            </p:column>
-                            <p:column headerText="Price" sortBy="#{offer.price}">
-                                <p:outputLabel value="#{offer.price} #{offer.currency}"/>
-                            </p:column>
-                            <p:column headerText="Location" sortBy="#{offer.location}">
-                                <p:outputLabel value="#{offer.location}"/>
-                            </p:column>
-                            <p:column headerText="Create date" sortBy="#{offer.createDate}">
-                                <p:outputLabel value="#{offer.createDate}"/>
-                            </p:column>
-                            <p:column headerText="End date" sortBy="#{offer.endDate}">
-                                <p:outputLabel value="#{offer.endDate}"/>
-                            </p:column>
-                            <p:column headerText="Status">
-                                <p:outputLabel value="#{farmingBean.offerStatusDescription(offer)}"/>
-                            </p:column>
-                            <p:column headerText="">
-                                <p:commandButton value="Notify" action="#{farmingBean.deleteOffer(offer)}"
-                                                 update=":mainTabView:offersTableForm"
-                                                 />
-                            </p:column>
-                        </p:dataTable>
+                            <p:panel header="#{offer.productName}" style="text-align: center">
+                                <p:panelGrid columns="1" style="width:100%">
+                                    <p:outputLabel value="#{offer.productName}"/>
+                                    <p:outputLabel value="#{offer.description}"/>
+                                    <p:outputLabel value="#{offer.price} #{offer.currency}"/>
+                                    <p:outputLabel value="#{offer.location}"/>
+                                    <p:outputLabel value="#{offer.createDate}"/>
+                                    <p:outputLabel value="#{offer.endDate}"/>
+                                    <p:outputLabel value="#{farmingBean.offerStatusDescription(offer)}"/>
+                                    <p:commandButton value="Notify" action="#{farmingBean.selectOffer(offer)}"
+                                                     oncomplete="PF('notifyDialog').show()"/>
+                                </p:panelGrid>
+                            </p:panel>
+                        </p:dataGrid>
                     </h:form>
                 </p:tab>
                 <p:tab title="Bids">
@@ -128,7 +120,7 @@
         <p:dialog id="addNewBidDialog" 
                   widgetVar="addNewBidDialog" hideEffect="fold" position="center" dynamic="true"
                   header="Create new bid" resizable="false" modal="true" closeOnEscape="true" closable="true" >
-            <h:form id="executeForm">
+            <h:form id="addNewBidForm">
                 <h:panelGrid columns="2" styleClass="panelGridNoBorder" >                                       
                     <p:outputLabel for="productName" value="Product" />                    
                     <p:selectOneMenu id="productName" value="#{buyerBean.productName}">
@@ -171,6 +163,24 @@
                                      update=":mainTabView:bidsTableForm"
                                      value="Create"/>
                     <p:commandButton onclick="PF('addNewBidDialog').hide()" value="Close"/>
+                </h:panelGrid>               
+            </h:form>
+        </p:dialog>
+
+        <p:dialog id="notifyDialog" 
+                  widgetVar="notifyDialog" hideEffect="fold" position="center" dynamic="true"
+                  header="Notify Farmer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+            <h:form id="notifyForm">
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="title" value="Title"/>
+                    <p:inputText id="title"/>
+                    <p:outputLabel for="note" value="note"/>
+                    <p:inputTextarea cols="50" rows="5" id="note"/>
+                    <p:commandButton onclick="PF('notifyDialog').hide()" 
+                                     action="#{buyerBean.notifyFarmer()}"
+                                     update=":mainTabView:bidsTableForm"
+                                     value="Notify"/>
+                    <p:commandButton onclick="PF('notifyDialog').hide()" value="Close"/>
                 </h:panelGrid>               
             </h:form>
         </p:dialog>
