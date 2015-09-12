@@ -29,11 +29,13 @@ public class FarmingBean implements Serializable {
     private Float bidPrice;
     private GoFarmingDao dao;
     private List<Bid> bidList;
+    private List<Offer> offerList;
 
     @PostConstruct
     public void init() {
         this.dao = new GoFarmingDao();
         this.bidList = new ArrayList<>();
+        this.offerList = new ArrayList<>();
     }
 
     public void setProductName(String productName) {
@@ -52,7 +54,15 @@ public class FarmingBean implements Serializable {
      * Creates a new instance of FarmingBeann
      */
     public FarmingBean() {
-        this.bidList = dao.fetchBids();
+//        this.bidList = dao.fetchBids();
+    }
+
+    public List<Bid> getBidList() {
+        return bidList;
+    }
+
+    public List<Offer> getOfferList() {
+        return offerList;
     }
 
     public void addNewBid() {
@@ -60,14 +70,20 @@ public class FarmingBean implements Serializable {
         bid.setProductName("pn");
         dao.saveBid(bid);
     }
-    
+
     public void addNewOffer() {
         Offer offer = new Offer();
+        offer.setProductName("pn");
         dao.saveOffer(offer);
+        fetchOffers();
     }
-    
+
     public void fetchBids() {
-        
+        this.bidList = dao.fetchBids();
+    }
+
+    public void fetchOffers() {
+        this.offerList = dao.fetchOffers();
     }
 
 }

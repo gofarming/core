@@ -11,12 +11,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 /**
  *
  * @author aida
  */
 @Entity
+@Table(name="FARMER")
 public class Farmer implements Serializable {
 
     private static final long serialVersionUID = 1L;

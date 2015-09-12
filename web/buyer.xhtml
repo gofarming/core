@@ -2,22 +2,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Hello Buyer</title>
-         <h:outputStylesheet name="css/default.css" />
+        <h:outputStylesheet name="css/default.css" />
     </h:head>
     <h:body>
         <p:panel>
-            <p:commandLink value="Exit"/>
+            <p:commandLink value="Exit" />
         </p:panel>
         <p:separator/>
-        <p:panel header="Hello Buyer">
-            <p:commandButton value="View Bids"/>
-            <p:dataTable>
-                
-            </p:dataTable>
+        <p:panel header="Hello Farmer">
+            <p:tabView>
+                <p:tab title="Notifications">
+                    <p:commandButton value="Notifications" action="#{farmingBean.fetchBids()}"/>
+                    <p:separator/>
+                    <p:dataTable paginator="true" resizableColumns="true" rows="10"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Bids">
+                    <p:commandButton value="Create offer" onclick="PF('addNewBidDialog').show()"/>
+                    <p:commandButton value="My offers"/>
+                    <p:separator/>
+                    <p:dataTable paginator="true" resizableColumns="true" rows="10"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>
         </p:panel>
+
+        <p:dialog id="addNewBidDialog" 
+                  widgetVar="addNewBidDialog" hideEffect="fold" position="center" dynamic="true"
+                  header="Create new offer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+            <h:form id="executeForm">
+                <h:panelGrid columns="2" styleClass="panelGridNoBorder" >                                       
+                    <p:outputLabel for="productType" value="Product" />                    
+                    <p:selectOneMenu id="productType">
+                        <f:selectItem itemLabel="Apple" itemValue="Apple"/>
+                        <f:selectItem itemLabel="Appricot" itemValue="Appricot"/>
+                        <f:selectItem itemLabel="Pear" itemValue="Pear"/>
+                        <f:selectItem itemLabel="Ruspberry  " itemValue="Ruspberry"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="price" value="Price" />                    
+                    <p:inputText id="price" />
+                    <p:outputLabel for="volue" value="Volume" />                    
+                    <p:inputText id="volue"/>
+                    <p:outputLabel for="dateUntil" value="Date until" />                    
+                    <p:calendar id="dateUntil"/>
+                    <p:commandButton onclick="PF('addNewBidDialog').hide()" 
+                                     action="#{farmingBean.addNewBid()}"
+                                     value="Create"/>
+                    <p:commandButton onclick="PF('addNewBidDialog').hide()" value="Close"/>
+                </h:panelGrid>               
+            </h:form>
+        </p:dialog>
     </h:body>
 </html>
 

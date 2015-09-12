@@ -14,9 +14,11 @@
         </p:panel>
         <p:separator/>
         <p:panel header="Hello Farmer">
-            <p:tabView>
+            <p:tabView id="mainTabView">
                 <p:tab title="Notifications">
-                    <p:commandButton value="Notifications" action="#{farmingBean.fetchOffers()}"/>
+                    <h:form>
+                        <p:commandButton value="Notifications" />
+                    </h:form>
                     <p:separator/>
                     <p:dataTable paginator="true" resizableColumns="true" rows="10"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
@@ -25,12 +27,19 @@
                 </p:tab>
                 <p:tab title="Offers">
                     <p:commandButton value="Create offer" onclick="PF('addNewOfferDialog').show()"/>
-                    <p:commandButton value="My offers"/>
+                    <p:commandButton value="My offers"
+                                     action="#{farmingBean.fetchOffers()}"
+                                     update=":mainTabView:offersTableForm"/>
                     <p:separator/>
-                    <p:dataTable paginator="true" resizableColumns="true" rows="10"
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-
-                    </p:dataTable>
+                    <h:form id="offersTableForm">
+                        <p:dataTable paginator="true" resizableColumns="true" rows="10"
+                                     var="offer" value="#{farmingBean.offerList}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+                            <p:column>
+                                <p:outputLabel value="#{offer.productName}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
                 </p:tab>
             </p:tabView>
         </p:panel>
@@ -55,6 +64,7 @@
                     <p:calendar id="dateUntil"/>
                     <p:commandButton onclick="PF('addNewOfferDialog').hide()" 
                                      action="#{farmingBean.addNewOffer()}"
+                                     update=":mainTabView:offersTableForm"
                                      value="Create"/>
                     <p:commandButton onclick="PF('addNewOfferDialog').hide()" value="Close"/>
                 </h:panelGrid>               

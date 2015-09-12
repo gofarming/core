@@ -7,8 +7,8 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
 
-        <property name="hibernate.connection.url">jdbc:postgresql://46.101.134.118:5432/gofarming</property> 
-        <!--<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/gofarming</property>--> 
+        <!--<property name="hibernate.connection.url">jdbc:postgresql://46.101.134.118:5432/gofarming</property>--> 
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/gofarming</property> 
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">postgres</property>
 
@@ -33,5 +33,6 @@
         <mapping class="space.gofarming.entity.Bid"/>
         <mapping class="space.gofarming.entity.Farmer"/>
         <mapping class="space.gofarming.entity.Buyer"/>
+        <mapping class="space.gofarming.entity.Offer"/>
     </session-factory>
 </hibernate-configuration>
