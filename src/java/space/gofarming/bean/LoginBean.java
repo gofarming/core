@@ -50,9 +50,7 @@ public class LoginBean {
                     .addMessage(null, new FacesMessage("Введите пользовательские данные."));
             return null;
         }
-
         if (username.equals("farmer")) {
-
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
 //            session.setAttribute("currentUser", user);
 //            session.setMaxInactiveInterval(300);
@@ -64,5 +62,11 @@ public class LoginBean {
         }
         return null;
 
+    }
+
+    public String logout() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        session.invalidate();
+        return "index?faces-redirect=true";
     }
 }

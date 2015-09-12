@@ -9,11 +9,35 @@
         <h:outputStylesheet name="css/default.css" />
     </h:head>
     <h:body>
-        <p:panel>
-            <p:commandLink value="Exit" />
-        </p:panel>
+        <h:panelGrid id="headerGrid" columns="2" width="100%" >
+            <p:panel>
+                <h:form>            
+                    <p:commandButton value="Выход" action="#{loginBean.logout()}" title="Click to quit Go Farmer"/>
+                </h:form>
+            </p:panel>
+            <p:panel>
+                <p:ajaxStatus style="display:block; width: 200px">
+                    <f:facet name="default">
+                        <h:outputText value="" />
+                    </f:facet>
+                    <f:facet name="start">
+                        <h:outputText value="Executing request" />
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" onerror="PF('errorDialog').hide()"/>
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                
+                    <p:graphicImage value="/images/loading.gif"/>
+                </p:dialog>
+                <p:dialog widgetVar="errorDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                
+                    <p:outputLabel value="Ошибка! Повторите запрос снова."/>
+                </p:dialog>
+            </p:panel>                
+        </h:panelGrid>  
         <p:separator/>
-        <p:panel header="Hello Farmer">
+        <p:panel header="Hello Farmer" footer="Go Farming">
             <p:tabView id="mainTabView">
                 <p:tab title="Notifications">
                     <h:form>

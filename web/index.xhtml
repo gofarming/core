@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Go Farming</title>
-         <h:outputStylesheet name="css/default.css" />
+        <h:outputStylesheet name="css/default.css" />
     </h:head>
     <h:body>
         <center>
@@ -16,6 +16,7 @@
                     <f:facet name="header">
                         <h:outputText value="Go Farming"/>
                     </f:facet>
+                    
                     <!--<p:graphicImage value="/images/newlogo.png"/>-->
                     <p:spacer height="10px" width="100%" />
                     <h:panelGrid columns="2" styleClass="authPanel">
@@ -25,6 +26,11 @@
                         <p:inputText type="password" value="#{loginBean.password}" autocomplete="false"/>
                         <p:commandButton ajax="false" value="Login" action="#{loginBean.login()}" />
                     </h:panelGrid>
+                </p:panel>
+                <p:panel style="width:600px; margin-top: 80px">
+                    <p:commandButton value="Create Offer"/>
+                    
+                    <p:commandButton value="Create Bid"/>
                 </p:panel>
             </h:form>
         </center>
