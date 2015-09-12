@@ -14,14 +14,30 @@
         </p:panel>
         <p:separator/>
         <p:panel header="Hello Farmer">
-            <p:commandButton value="Create Bid" onclick="PF('addNewBidDialog').show()"/>
-            <p:commandButton value="View Bids"/>
-            <p:commandButton value="View Bids"/>
+            <p:tabView>
+                <p:tab title="Notifications">
+                    <p:commandButton value="Notifications" action="#{farmingBean.fetchOffers()}"/>
+                    <p:separator/>
+                    <p:dataTable paginator="true" resizableColumns="true" rows="10"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Offers">
+                    <p:commandButton value="Create offer" onclick="PF('addNewOfferDialog').show()"/>
+                    <p:commandButton value="My offers"/>
+                    <p:separator/>
+                    <p:dataTable paginator="true" resizableColumns="true" rows="10"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                    </p:dataTable>
+                </p:tab>
+            </p:tabView>
         </p:panel>
 
-        <p:dialog id="addNewBidDialog" 
-                  widgetVar="addNewBidDialog" hideEffect="fold" position="center" dynamic="true"
-                  header="Create new Bid" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+        <p:dialog id="addNewOfferDialog" 
+                  widgetVar="addNewOfferDialog" hideEffect="fold" position="center" dynamic="true"
+                  header="Create new offer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
             <h:form id="executeForm">
                 <h:panelGrid columns="2" styleClass="panelGridNoBorder" >                                       
                     <p:outputLabel for="productType" value="Product" />                    
@@ -37,10 +53,10 @@
                     <p:inputText id="volue"/>
                     <p:outputLabel for="dateUntil" value="Date until" />                    
                     <p:calendar id="dateUntil"/>
-                    <p:commandButton onclick="PF('addNewBidDialog').hide()" 
-                                     action="#{farmingBean.addNewBid()}"
+                    <p:commandButton onclick="PF('addNewOfferDialog').hide()" 
+                                     action="#{farmingBean.addNewOffer()}"
                                      value="Create"/>
-                    <p:commandButton onclick="PF('addNewBidDialog').hide()" value="Close"/>
+                    <p:commandButton onclick="PF('addNewOfferDialog').hide()" value="Close"/>
                 </h:panelGrid>               
             </h:form>
         </p:dialog>

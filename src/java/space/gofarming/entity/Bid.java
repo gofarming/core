@@ -27,41 +27,83 @@ public class Bid implements Serializable {
     @GeneratedValue(generator = "bid_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "bid_seq", sequenceName = "bid_seq", allocationSize = 1, initialValue = 1)
     private Long id;
-    private String product;
+    private String productName;
+    private String buyerName;
+    private Integer volume;
+    private Float preferedPrice;
+    private Boolean deliveryRequest;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date untilDte;
-    private String buyer;
+    private Date createDate;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date endDate;
+    private Integer status;
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getProductName() {
+        return productName;
     }
 
-    public String getProduct() {
-        return product;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public void setProduct(String product) {
-        this.product = product;
+    public String getBuyerName() {
+        return buyerName;
     }
 
-    public Date getUntilDte() {
-        return untilDte;
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
     }
 
-    public void setUntilDte(Date untilDte) {
-        this.untilDte = untilDte;
+    public Integer getVolume() {
+        return volume;
     }
 
-    public String getBuyer() {
-        return buyer;
+    public void setVolume(Integer volume) {
+        this.volume = volume;
     }
 
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
+    public Float getPreferedPrice() {
+        return preferedPrice;
+    }
+
+    public void setPreferedPrice(Float preferedPrice) {
+        this.preferedPrice = preferedPrice;
+    }
+
+    public Boolean getDeliveryRequest() {
+        return deliveryRequest;
+    }
+
+    public void setDeliveryRequest(Boolean deliveryRequest) {
+        this.deliveryRequest = deliveryRequest;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
 }

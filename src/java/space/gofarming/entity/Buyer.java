@@ -18,11 +18,16 @@ import javax.persistence.SequenceGenerator;
  */
 @Entity
 public class Buyer implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(generator = "buyer_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "buyer_seq", sequenceName = "buyer_seq", allocationSize = 1, initialValue = 1)
     private Long id;
+    private String fullname;
+    private String contactNumber;
+    private String location;
+    private String email;
 
     public Long getId() {
         return id;
@@ -32,29 +37,36 @@ public class Buyer implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    public String getFullname() {
+        return fullname;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Buyer)) {
-            return false;
-        }
-        Buyer other = (Buyer) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
-    @Override
-    public String toString() {
-        return "space.gofarming.entity.Buyer[ id=" + id + " ]";
+    public String getContactNumber() {
+        return contactNumber;
     }
-    
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }
