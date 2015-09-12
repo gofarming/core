@@ -100,4 +100,30 @@ public class GoFarmingDao {
         }
     }
 
+    public void deleteBid(Bid bid) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = session.beginTransaction();
+            session.delete(bid);
+            tx.commit();
+            session.flush();
+            session.close();
+        } catch (Exception e) {
+            LOG.log(Level.INFO, e.getMessage());
+        }
+    }
+
+    public void updateBid(Bid bid) {
+        try {
+            Session mySession = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = mySession.beginTransaction();
+            mySession.update(bid);
+            tx.commit();
+            mySession.flush();
+            mySession.close();
+        } catch (Exception e) {
+            LOG.log(Level.INFO, e.getMessage());
+        }
+    }
+
 }

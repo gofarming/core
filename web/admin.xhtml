@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Hello Farmer</title>
         <h:outputStylesheet name="css/default.css" />
@@ -15,15 +16,47 @@
         <p:tabView>
             <p:tab title="Farmers">
                 <p:commandButton value="View farmers"/>
+                <p:separator />
+                <p:dataTable paginator="true" resizableColumns="true" rows="10" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="5,10,15,25,50">
+                    <f:facet name="header">
+                        <h:outputText value="Farmers"/>
+                    </f:facet>
+                </p:dataTable>
             </p:tab>
             <p:tab title="Buyers">
                 <p:commandButton value="View Buyers"/>
+                <p:separator />
+                <p:dataTable paginator="true" resizableColumns="true" rows="10" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="5,10,15,25,50">
+                    <f:facet name="header">
+                        <h:outputText value="Buyers"/>
+                    </f:facet>
+                </p:dataTable>
             </p:tab>
             <p:tab title="Statistics">
                 <p:commandButton value="View Buyers"/>
+                <p:separator />
+                <p:dataTable paginator="true" resizableColumns="true" rows="10" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="5,10,15,25,50">
+                    <f:facet name="header">
+                        <h:outputText value="Statistics"/>
+                    </f:facet>
+                </p:dataTable>
             </p:tab>
             <p:tab title="Logs">
                 <p:commandButton value="View Buyers"/>
+                <p:separator />
+                <p:dataTable paginator="true" resizableColumns="true" rows="10" 
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="5,10,15,25,50">
+                    <f:facet name="header">
+                        <h:outputText value="Logs"/>
+                    </f:facet>
+                </p:dataTable>
             </p:tab>
         </p:tabView>
 
