@@ -44,10 +44,10 @@
                                 <p:outputLabel value="#{bid.productName}"/>
                             </p:column>
                             <p:column headerText="Price">
-                                <!--<p:outputLabel value="{bid.bid} {bid.currency}"/>-->
+                                <p:outputLabel value="#{bid.price} #{bid.currency}"/>
                             </p:column>
                             <p:column headerText="Location">
-                                <!--<p:outputLabel value="{bid.location}"/>-->
+                                <p:outputLabel value="#{bid.location}"/>
                             </p:column>
                             <p:column headerText="Create date">
                                 <p:outputLabel value="#{bid.createDate}"/>
@@ -90,7 +90,7 @@
                     <p:inputTextarea cols="50" rows="5" 
                                      id="bidDescription" value="#{buyerBean.bidDescription}"/>
 
-                    <p:outputLabel for="bidPrice" value="Price" />                    
+                    <p:outputLabel for="bidPrice" value="Prefered price" />                    
                     <p:inputText id="bidPrice" value="#{buyerBean.bidPrice}"/>
 
                     <p:outputLabel for="bidCurrency" value="Currency" />                    

@@ -11,9 +11,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -28,18 +30,36 @@ public class Bid implements Serializable {
     @SequenceGenerator(name = "bid_seq", sequenceName = "bid_seq", allocationSize = 1, initialValue = 1)
     private Long id;
     private String productName;
-    private String buyerName;
+    @Lob
+    private String description;
     private Integer volume;
-    private Float preferedPrice;
-    private Boolean deliveryRequest;
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private String volumeType;
+    private Float price;
+    private String currency;
+    private String location;
+    private String farmerId;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
     private Integer status;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date closeDate;
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCloseDate() {
+        return closeDate;
+    }
+
+    public void setCloseDate(Date closeDate) {
+        this.closeDate = closeDate;
     }
 
     public String getProductName() {
@@ -50,12 +70,12 @@ public class Bid implements Serializable {
         this.productName = productName;
     }
 
-    public String getBuyerName() {
-        return buyerName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBuyerName(String buyerName) {
-        this.buyerName = buyerName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getVolume() {
@@ -66,20 +86,44 @@ public class Bid implements Serializable {
         this.volume = volume;
     }
 
-    public Float getPreferedPrice() {
-        return preferedPrice;
+    public String getVolumeType() {
+        return volumeType;
     }
 
-    public void setPreferedPrice(Float preferedPrice) {
-        this.preferedPrice = preferedPrice;
+    public void setVolumeType(String volumeType) {
+        this.volumeType = volumeType;
     }
 
-    public Boolean getDeliveryRequest() {
-        return deliveryRequest;
+    public Float getPrice() {
+        return price;
     }
 
-    public void setDeliveryRequest(Boolean deliveryRequest) {
-        this.deliveryRequest = deliveryRequest;
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getFarmerId() {
+        return farmerId;
+    }
+
+    public void setFarmerId(String farmerId) {
+        this.farmerId = farmerId;
     }
 
     public Date getCreateDate() {

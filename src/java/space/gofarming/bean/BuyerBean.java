@@ -109,12 +109,6 @@ public class BuyerBean implements Serializable {
         this.bidDescription = bidDescription;
     }
 
-    public void addNewBid() {
-        Bid bid = new Bid();
-        bid.setProductName("pn");
-        dao.saveBid(bid);
-    }
-
     public String getBidCurrency() {
         return bidCurrency;
     }
@@ -151,18 +145,18 @@ public class BuyerBean implements Serializable {
         this.bidEndDate = bidEndDate;
     }
 
-    public void addNewBid2() {
+    public void addNewBid() {
         Bid bid = new Bid();
         bid.setProductName(productName);
         bid.setCreateDate(new Date());
-//        bid.setCurrency(bidCurrency);
+        bid.setCurrency(bidCurrency);
         bid.setEndDate(bidEndDate);
-//        bid.setFarmerId("farmer");
-//        bid.setLocation(bidLocation);
-//        bid.setPrice(bidPrice);
+        bid.setFarmerId("farmer");
+        bid.setLocation(bidLocation);
+        bid.setPrice(bidPrice);
         bid.setVolume(bidVolume);
-//        bid.setVolumeType(bidVolumeType);
-//        bid.setDescription(bidDescription);
+        bid.setVolumeType(bidVolumeType);
+        bid.setDescription(bidDescription);
         bid.setStatus(1);
         dao.saveBid(bid);
         fetchBids();
