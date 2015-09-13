@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Go Farming</title>
+        <h:outputStylesheet name="css/default.css" />
+        <style>
+            body {
+                /*background-color: none;*/
+                min-height: 100%;
+            }
+            body {
+                /*background-image: url(images/silenivineyards.jpg);*/
+                background-image: url("#{resource['images/silenivineyards.jpg']}");
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                background-size: cover;
+                background-attachment:fixed;
+            }
+            @media (min-width: 2120px), (min-height: 1630px) {
+                body { background-size: auto; }
+            }
+            a:link {
+                color: white;
+
+            }
+            a:hover{
+                color: black;   
+            }
+        </style>
+    </h:head>
+    <h:body>
+
+        <!--        <p:panel style="text-align: right; background: none; border: none;">
+                    <p:link outcome="about" value="About"/>
+                    &bull;
+                    <p:commandLink onclick="PF('loginDialog').show()" value="Login"/>
+                    &bull;
+                    <p:commandLink onclick="PF('registerDialog').show()" value="Register"/>
+                </p:panel>-->
+        <p:panel style="margin-left: 300px; margin-right: 300px;">
+
+            <h2>Mission</h2>
+            <p>
+                To create a market place where farmers and buyers can meet, build fast and direct connections and make deals. 
+            </p>
+            <h2>
+                What are the benefits and uniqueness of this website?
+            </h2>
+
+            <h3>    
+                Benefits for Farmers:
+            </h3>
+            <p>&bull; Establishing networks with buyers </p>
+            <p>&bull; Selling fruits and vegetables for higher prices</p>
+            <p>&bull; Getting access to agricultural innovations and information</p>
+            <h3>
+                Benefits for Buyers:
+            </h3>
+            <p>&bull; Establishing fast and direct connections with farmers</p>
+            <p>&bull; Finding needed volume of agricultural produce</p>
+            <p>&bull; Improving competition and free market mechanisms</p>
+            <p:link outcome="index" value="Main page"/>
+        </p:panel>
+    </h:body>
+</html>
+

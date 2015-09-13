@@ -40,12 +40,12 @@ public class BubbleView implements Serializable {
 
     private void createBubbleModels() {
         bubbleModel1 = initBubbleModel();
-        bubbleModel1.setTitle("Bubble Chart");
+        bubbleModel1.setTitle("Sales Chart");
         bubbleModel1.getAxis(AxisType.X).setLabel("Price");
         Axis yAxis = bubbleModel1.getAxis(AxisType.Y);
         yAxis.setMin(0);
         yAxis.setMax(250);
-        yAxis.setLabel("Labels");
+        yAxis.setLabel("Products");
 
         bubbleModel2 = initBubbleModel();
         bubbleModel2.setTitle("Custom Options");

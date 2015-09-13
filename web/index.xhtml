@@ -35,6 +35,8 @@
     <h:body>
         <center>
             <p:panel style="text-align: right; background: none; border: none;">
+                <p:link outcome="about" value="About" style="color: white"/>
+                &bull;
                 <p:commandLink onclick="PF('loginDialog').show()" value="Login"/>
                 &bull;
                 <p:commandLink onclick="PF('registerDialog').show()" value="Register"/>
@@ -78,34 +80,13 @@
             </p:dialog>
 
             <p:panel  style="background: none; border: none;">
-                <h1 style="font-size: 4em; font-weight: bold; color: white; font-weight: bold; text-shadow: 4px 4px black; 
-                    font-family: Helvetica;">Directly connecting farmers with buyers to make deals</h1>
+                <p:graphicImage value="/images/logo.png" width="250"/>
+                <h1 style="width: 800px; font-size: 3em; font-weight: bold; color: white; font-weight: bold;  
+                    font-family: Helvetica; text-shadow: 2px 2px black;">Directly connecting farmers with buyers to make deals</h1>
                 <h:panelGrid columns="2" cellpadding="5" styleClass="authPanel" >
-                    <p:panel style="margin: 20px; text-align: center; 
-                             width: 400px; padding: 10px; 
-                             transform: rotate(-10deg);">
-                        <p:graphicImage value="/images/1.jpg" width="200"/>
-                        <br/>
-                        <p:commandLink value="I'm a Farmer" style="font-weight: bold; 
-                                       font-size: 2em; color: black;" />
-                        <br/>
-                        <p>Establishing networks with buyers</p>
-                        <p>Selling fruits and vegetables for higher prices</p>
-                        <p>Getting access to agricultural innovations and information</p>
-                    </p:panel>
-                    <p:panel style="margin: 20px; text-align: center; 
-                             width: 400px; padding: 10px; transform: rotate(15deg);">
-                        <p:graphicImage value="/images/2.jpg" width="300"/>
-                        <br/>
-                        <p:commandLink value="I'm a Buyer" style="font-weight: bold; font-size: 2em; color: black;"/> 
-                        <br/>
-                        <p>Establishing fast and direct connections with farmers</p>
-                        <p>Finding needed volume of agricultural produce</p>
-                        <p>Improving competition and free market mechanisms</p>
-                    </p:panel>
-
+                    <p:graphicImage value="/images/3.png" height="350"/>
+                    <p:graphicImage value="/images/4.png" height="350"/>
                 </h:panelGrid>
-
             </p:panel>
         </center>
     </h:body>

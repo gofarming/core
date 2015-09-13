@@ -54,7 +54,7 @@
                             <h:outputText value="Notifications"/>
                         </f:facet>
                         <p:column headerText="From">
-                            <p:outputLabel value="#{note.buyerId}"/>
+                            <p:outputLabel value="Buyer"/>
                         </p:column>
                         <p:column headerText="Notification">
                             <p:outputLabel value="#{note.notification}"/>
@@ -155,17 +155,17 @@
                     <p:outputLabel for="offerVolume" value="Volume" />                    
                     <p:inputText id="offerVolume" value="#{farmingBean.offerVolume}"/>
 
-                    <p:outputLabel for="deliveryAvailable" value="Delivery available" />                    
-                    <p:selectBooleanCheckbox id="deliveryAvailable" value="#{farmingBean.deliveryAvailable}"/>
-
                     <p:outputLabel for="offerVolumeType" value="Volume type" />                    
                     <p:inputText id="offerVolumeType" value="#{farmingBean.offerVolumeType}"/>
 
+                    <p:outputLabel for="deliveryAvailable" value="Delivery available" />                    
+                    <p:selectBooleanCheckbox id="deliveryAvailable" value="#{farmingBean.deliveryAvailable}"/>
+                    
                     <p:outputLabel for="offerLocation" value="Location" />                    
                     <p:inputText id="offerLocation" value="#{farmingBean.offerLocation}"/>
 
                     <p:outputLabel for="dateUntil" value="Date until" />                    
-                    <p:calendar id="dateUntil" showOn="button" showButtonPanel="true"
+                    <p:calendar id="dateUntil" showOn="button" 
                                 value="#{farmingBean.offerEndDate}"
                                 pattern="MM/dd/yyyy" />
                     <p:commandButton onclick="PF('addNewOfferDialog').hide()" 
