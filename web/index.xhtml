@@ -23,20 +23,32 @@
             @media (min-width: 2120px), (min-height: 1630px) {
                 body { background-size: auto; }
             }
+            a:link {
+                color: white;
+
+            }
+            a:hover{
+                color: black;   
+            }
         </style>
     </h:head>
     <h:body>
         <center>
+            <p:panel style="text-align: right; background: none; border: none;">
+                <p:commandLink onclick="PF('loginDialog').show()" value="Login"/>
+                &bull;
+                <p:commandLink onclick="PF('registerDialog').show()" value="Register"/>
+            </p:panel>
 
 
             <p:dialog id="loginDialog" 
                       widgetVar="loginDialog" hideEffect="fold" position="center" dynamic="true"
-                      header="Login" resizable="false" modal="true" closeOnEscape="true" closable="false" >
+                      header="Login" resizable="false" modal="true" closeOnEscape="true" closable="true" >
                 <h:form>
-                    <p:panel style="width:600px;">
+                    <p:panel style="width:400px;">
                         <!--<p:graphicImage value="/images/newlogo.png"/>-->
                         <p:spacer height="10px" width="100%" />
-                        <h:panelGrid columns="2" styleClass="authPanel">
+                        <h:panelGrid columns="2" cellpadding="5" styleClass="authPanel">
                             <p:outputLabel value="Username"/>
                             <p:inputText value="#{loginBean.username}"/>
                             <p:outputLabel value="Password"/>
@@ -47,19 +59,53 @@
                 </h:form>
             </p:dialog>
 
-            <p:panel style="width:1000px; background: none; border: none;">
+            <p:dialog id="registerDialog" 
+                      widgetVar="registerDialog" hideEffect="fold" position="center" dynamic="true"
+                      header="Register" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+                <h:form>
+                    <p:panel style="width:400px;">
+                        <!--<p:graphicImage value="/images/newlogo.png"/>-->
+                        <p:spacer height="10px" width="100%" />
+                        <h:panelGrid columns="2" cellpadding="5" styleClass="authPanel">
+                            <p:outputLabel value="Username"/>
+                            <p:inputText value="#{loginBean.username}"/>
+                            <p:outputLabel value="Password"/>
+                            <p:inputText type="password" value="#{loginBean.password}" autocomplete="false"/>
+                            <p:commandButton ajax="false" value="Login" action="#{loginBean.login()}" />
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </p:dialog>
 
-                <h1 style="font-size: 5em; color: white; text-shadow: 2px 2px black; 
-                    font-family: Helvetica;">Directly connecting farmers with buyers</h1>
-                <!--<p:graphicImage value="images/newlogo.png"/>-->
-                <p:commandButton value="Farmer" /> &bull; 
+            <p:panel  style="background: none; border: none;">
+                <h1 style="font-size: 4em; font-weight: bold; color: white; font-weight: bold; text-shadow: 4px 4px black; 
+                    font-family: Helvetica;">Directly connecting farmers with buyers to make deals</h1>
+                <h:panelGrid columns="2" cellpadding="5" styleClass="authPanel" >
+                    <p:panel style="margin: 20px; text-align: center; 
+                             width: 400px; padding: 10px; 
+                             transform: rotate(-10deg);">
+                        <p:graphicImage value="/images/1.jpg" width="200"/>
+                        <br/>
+                        <p:commandLink value="I'm a Farmer" style="font-weight: bold; 
+                                       font-size: 2em; color: black;" />
+                        <br/>
+                        <p>Establishing networks with buyers</p>
+                        <p>Selling fruits and vegetables for higher prices</p>
+                        <p>Getting access to agricultural innovations and information</p>
+                    </p:panel>
+                    <p:panel style="margin: 20px; text-align: center; 
+                             width: 400px; padding: 10px; transform: rotate(15deg);">
+                        <p:graphicImage value="/images/2.jpg" width="300"/>
+                        <br/>
+                        <p:commandLink value="I'm a Buyer" style="font-weight: bold; font-size: 2em; color: black;"/> 
+                        <br/>
+                        <p>Establishing fast and direct connections with farmers</p>
+                        <p>Finding needed volume of agricultural produce</p>
+                        <p>Improving competition and free market mechanisms</p>
+                    </p:panel>
 
-                <p:commandButton value="Buyer"/> &bull; 
-                <p:commandButton value="Logistics"/> 
-                <p:separator/>
-                <p:commandLink onclick="PF('loginDialog').show()" value="Login"/>
-                &bull;
-                <p:commandLink onclick="PF('loginDialog').show()" value="Register"/>
+                </h:panelGrid>
+
             </p:panel>
         </center>
     </h:body>

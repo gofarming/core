@@ -9,7 +9,7 @@
         <h:outputStylesheet name="css/default.css" />
     </h:head>
     <h:body>
-        <h:panelGrid id="headerGrid" columns="2" width="100%" >
+        <h:panelGrid id="headerGrid" cellpadding="5" columns="2" width="100%" >
             <p:panel>
                 <p:ajaxStatus style="display:block; width: 200px">
                     <f:facet name="default">
@@ -130,7 +130,7 @@
                   widgetVar="registerNewFarmerDialog" hideEffect="fold" position="center" dynamic="true"
                   header="Register new Farmer" resizable="false" modal="true" closeOnEscape="true" closable="false" >
             <h:form id="registerNewFarmerDialogForm">
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="2" cellpadding="5">
                     <p:outputLabel for="farmerFullname" value="Full name"/>
                     <p:inputText id="farmerFullname" value="#{sysAdminBean.farmerFullname}"/>
 
@@ -156,7 +156,7 @@
                   widgetVar="registerNewBuyerDialog" hideEffect="fold" position="center" dynamic="true"
                   header="Register new Buyer" resizable="false" modal="true" closeOnEscape="true" closable="false" >
             <h:form id="registerNewBuyerDialogForm">
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="2" cellpadding="5">
                     <p:outputLabel for="buyerFullname" value="Full name"/>
                     <p:inputText id="buyerFullname" value="#{sysAdminBean.buyerFullname}"/>
 

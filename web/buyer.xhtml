@@ -7,9 +7,10 @@
     <h:head>
         <title>Hello Buyer</title>
         <h:outputStylesheet name="css/default.css" />
+        <h:outputStylesheet name="css/font-awesome.min.css" />
     </h:head>
     <h:body>
-        <h:panelGrid id="headerGrid" columns="2" width="100%" >
+        <h:panelGrid id="headerGrid" cellpadding="5" columns="2" width="100%" >
             <p:panel>
                 <p:ajaxStatus style="display:block; width: 200px">
                     <f:facet name="default">
@@ -37,100 +38,99 @@
             </p:panel>
         </h:panelGrid> 
         <p:separator/>
-        
-            <p:tabView id="mainTabView">
-                <p:tab title="Offers">
-                    <p:commandButton value="Offers"
-                                     action="#{farmingBean.fetchOffers()}"
-                                     update=":mainTabView:offersTableForm"/>
-                    <p:separator/>
-                    <h:form id="offersTableForm">
-                        <p:dataGrid 
-                            var="offer" value="#{farmingBean.offerList}"
-                            columns="3" layout="grid"
-                            rows="12" paginator="true" id="offers"
-                            paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                            rowsPerPageTemplate="6,12,16">
-                            <f:facet name="header">
-                                <h:outputText value="Offers"/>
-                            </f:facet>
-                            <p:panel header="#{offer.productName}">
-                                <p:panelGrid columns="2" style="width:100%; vertical-align: top;">
-                                    <p:outputLabel for="productName" value="Product: "/>
-                                    <p:outputLabel id="productName" value="#{offer.productName}"/>
-                                    <p:outputLabel for="description" value="Description: "/>
-                                    <p:outputLabel id="description" value="#{offer.description}"/>
-                                    <p:outputLabel for="price" value="Price: "/>
-                                    <p:outputLabel id="price" value="#{offer.price} #{offer.currency}"/>
-                                    <p:outputLabel for="location" value="Location: "/>
-                                    <p:outputLabel id="location" value="#{offer.location}"/>
-                                    <p:outputLabel for="deliveryAvailable" value="Delivery available: "/>
-                                    <p:selectBooleanCheckbox id="deliveryAvailable" 
-                                                             disabled="true"
-                                                             value="#{offer.deliveryAvailable}"/>
-                                    <p:outputLabel for="endDate" value="End data: "/>
-                                    <p:outputLabel id="endDate" value="#{offer.endDate}"/>
-                                    <p:outputLabel for="status" value="Status: "/>
-                                    <p:outputLabel id="status" value="#{farmingBean.offerStatusDescription(offer)}"/>
-                                </p:panelGrid>
-                                <p:commandButton value="Notify" action="#{farmingBean.selectOffer(offer)}"
-                                                 oncomplete="PF('notifyDialog').show()"/>
-                            </p:panel>
-                        </p:dataGrid>
-                    </h:form>
-                </p:tab>
-                <p:tab title="Bids">
-                    <p:commandButton value="Create bid" onclick="PF('addNewBidDialog').show()"/>
-                    <p:commandButton value="My bids"
-                                     action="#{buyerBean.fetchBids()}"
-                                     update=":mainTabView:bidsTableForm"/>
-                    <p:separator/>
-                    <h:form id="bidsTableForm">
-                        <p:dataTable paginator="true" resizableColumns="true" rows="10"
-                                     var="bid" value="#{buyerBean.bidList}"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                     rowsPerPageTemplate="5,10,15,25,50">
-                            <f:facet name="header">
-                                <h:outputText value="Bids"/>
-                            </f:facet>
-                            <p:column headerText="Name">
-                                <p:outputLabel value="#{bid.productName}"/>
-                            </p:column>
-                            <p:column headerText="Price">
-                                <p:outputLabel value="#{bid.price} #{bid.currency}"/>
-                            </p:column>
-                            <p:column headerText="Location">
-                                <p:outputLabel value="#{bid.location}"/>
-                            </p:column>
-                            <p:column headerText="Create date">
-                                <p:outputLabel value="#{bid.createDate}"/>
-                            </p:column>
-                            <p:column headerText="End date">
-                                <p:outputLabel value="#{bid.endDate}"/>
-                            </p:column>
-                            <p:column headerText="Status">
-                                <p:outputLabel value="#{buyerBean.bidStatusDescription(bid)}"/>
-                            </p:column>
-                            <p:column headerText="">
-                                <p:commandButton value="Close" action="#{buyerBean.closeBid(bid)}"
-                                                 update=":mainTabView:bidsTableForm"/>
-                            </p:column>
-                            <p:column headerText="">
-                                <p:commandButton value="Delete" action="#{buyerBean.deleteBid(bid)}"
-                                                 update=":mainTabView:bidsTableForm"
-                                                 disabled="#{bid.status != 1}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
-                </p:tab>
-            </p:tabView>
-        
+
+        <p:tabView id="mainTabView">
+            <p:tab title="Offers">
+                <p:commandButton value="Offers"
+                                 action="#{farmingBean.fetchOffers()}"
+                                 update=":mainTabView:offersTableForm"/>
+                <p:separator/>
+                <h:form id="offersTableForm">
+                    <p:dataGrid 
+                        var="offer" value="#{farmingBean.offerList}"
+                        columns="3" layout="grid"
+                        rows="12" paginator="true" id="offers"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+                        <f:facet name="header">
+                            <h:outputText value="Offers"/>
+                        </f:facet>
+                        <p:panel header="#{offer.productName}">
+                            <h:panelGrid columns="2" cellpadding="5" style="width:100%; vertical-align: top;">
+                                <p:outputLabel for="productName" value="Product: "/>
+                                <p:outputLabel id="productName" value="#{offer.productName}"/>
+                                <p:outputLabel for="description" value="Description: "/>
+                                <p:outputLabel id="description" value="#{offer.description}"/>
+                                <p:outputLabel for="price" value="Price: "/>
+                                <p:outputLabel id="price" value="#{offer.price} #{offer.currency}"/>
+                                <p:outputLabel for="location" value="Location: "/>
+                                <p:outputLabel id="location" value="#{offer.location}"/>
+                                <p:outputLabel for="deliveryAvailable" value="Delivery available: "/>
+                                <p:selectBooleanCheckbox id="deliveryAvailable" 
+                                                         disabled="true"
+                                                         value="#{offer.deliveryAvailable}"/>
+                                <p:outputLabel for="endDate" value="End data: "/>
+                                <p:outputLabel id="endDate" value="#{offer.endDate}"/>
+                                <p:outputLabel for="status" value="Status: "/>
+                                <p:outputLabel id="status" value="#{farmingBean.offerStatusDescription(offer)}"/>
+                            </h:panelGrid>
+                            <p:commandButton value="Notify" action="#{farmingBean.selectOffer(offer)}"
+                                             oncomplete="PF('notifyDialog').show()"/>
+                        </p:panel>
+                    </p:dataGrid>
+                </h:form>
+            </p:tab>
+            <p:tab title="Bids">
+                <p:commandButton value="Create bid" onclick="PF('addNewBidDialog').show()"/>
+                <p:commandButton value="My bids"
+                                 action="#{buyerBean.fetchBids()}"
+                                 update=":mainTabView:bidsTableForm"/>
+                <p:separator/>
+                <h:form id="bidsTableForm">
+                    <p:dataTable paginator="true" resizableColumns="true" rows="10"
+                                 var="bid" value="#{buyerBean.bidList}"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="5,10,15,25,50">
+                        <f:facet name="header" >
+                            <h:outputText value="Bids"/>
+                        </f:facet>
+                        <p:column headerText="Name">
+                            <p:outputLabel value="#{bid.productName}"/>
+                        </p:column>
+                        <p:column headerText="Price">
+                            <p:outputLabel value="#{bid.price} #{bid.currency}"/>
+                        </p:column>
+                        <p:column headerText="Location">
+                            <p:outputLabel value="#{bid.location}"/>
+                        </p:column>
+                        <p:column headerText="Create date">
+                            <p:outputLabel value="#{bid.createDate}"/>
+                        </p:column>
+                        <p:column headerText="End date">
+                            <p:outputLabel value="#{bid.endDate}"/>
+                        </p:column>
+                        <p:column headerText="Status">
+                            <p:outputLabel value="#{buyerBean.bidStatusDescription(bid)}"/>
+                        </p:column>
+                        <p:column headerText="">
+                            <p:commandButton value="Close" action="#{buyerBean.closeBid(bid)}"
+                                             update=":mainTabView:bidsTableForm"/>
+                        </p:column>
+                        <p:column headerText="">
+                            <p:commandButton value="Delete" action="#{buyerBean.deleteBid(bid)}"
+                                             update=":mainTabView:bidsTableForm"
+                                             disabled="#{bid.status != 1}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:tab>
+        </p:tabView>
 
         <p:dialog id="addNewBidDialog" 
                   widgetVar="addNewBidDialog" hideEffect="fold" position="center" dynamic="true"
                   header="Create new bid" resizable="false" modal="true" closeOnEscape="true" closable="false" >
             <h:form id="addNewBidForm">
-                <h:panelGrid columns="2" styleClass="panelGridNoBorder" >                                       
+                <h:panelGrid columns="2" cellpadding="5" styleClass="panelGridNoBorder" >                                       
                     <p:outputLabel for="productName" value="Product" />                    
                     <p:selectOneMenu id="productName" value="#{buyerBean.productName}">
                         <f:selectItem itemLabel="Apple" itemValue="Apple"/>
@@ -184,7 +184,7 @@
                   widgetVar="notifyDialog" hideEffect="fold" position="center" dynamic="true"
                   header="Notify Farmer" resizable="false" modal="true" closeOnEscape="true" closable="false" >
             <h:form id="notifyForm">
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="2" cellpadding="5">
                     <p:outputLabel for="title" value="Title"/>
                     <p:inputText id="title" value="#{buyerBean.noteTitle}"/>
                     <p:outputLabel for="note" value="Note"/>
