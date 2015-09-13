@@ -103,7 +103,7 @@
 
         <p:dialog id="addNewOfferDialog" 
                   widgetVar="addNewOfferDialog" hideEffect="fold" position="center" dynamic="true"
-                  header="Create new offer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+                  header="Create new offer" resizable="false" modal="true" closeOnEscape="true" closable="false" >
             <h:form id="addNewOfferForm">
                 <h:panelGrid columns="2" styleClass="panelGridNoBorder" >                                       
                     <p:outputLabel for="productName" value="Product" />                    
@@ -157,7 +157,7 @@
         <h:form id="offerDetailsForm">
             <p:dialog id="offerDetailsDialog" width="40%"
                       widgetVar="offerDetailsDialog" hideEffect="fold" position="center" dynamic="true"
-                      header="Offer details for #{farmingBean.selectedOffer.productName}" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+                      header="Offer details for #{farmingBean.selectedOffer.productName}" resizable="false" modal="true" closeOnEscape="true" closable="false" >
                 <h:panelGrid columns="2" styleClass="panelGridNoBorder" >                                       
                     <p:outputLabel for="productName" value="Product" />                    
                     <p:outputLabel id="productName" value="#{farmingBean.selectedOffer.productName}" />                    
