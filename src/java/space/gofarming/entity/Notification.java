@@ -39,6 +39,8 @@ public class Notification implements Serializable {
     private Integer status;
     @Temporal(TemporalType.TIMESTAMP)
     private Date closeDate;
+    private Long offerId;
+    private Long buyerId;
 
     public Long getId() {
         return id;
@@ -94,6 +96,22 @@ public class Notification implements Serializable {
 
     public void setCloseDate(Date closeDate) {
         this.closeDate = closeDate;
+    }
+
+    public Long getOfferId() {
+        return offerId;
+    }
+
+    public void setOfferId(Long offerId) {
+        this.offerId = offerId;
+    }
+
+    public Long getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(Long buyerId) {
+        this.buyerId = buyerId;
     }
 
 }

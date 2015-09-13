@@ -6,6 +6,7 @@
     <class>space.gofarming.entity.Farmer</class>
     <class>space.gofarming.entity.Buyer</class>
     <class>space.gofarming.entity.Offer</class>
+    <class>space.gofarming.entity.Notification</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/gofarming"/>

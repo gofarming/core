@@ -34,5 +34,6 @@
         <mapping class="space.gofarming.entity.Farmer"/>
         <mapping class="space.gofarming.entity.Buyer"/>
         <mapping class="space.gofarming.entity.Offer"/>
+        <mapping class="space.gofarming.entity.Notification"/>
     </session-factory>
 </hibernate-configuration>

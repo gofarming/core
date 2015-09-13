@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import space.gofarming.dao.GoFarmingDao;
 import space.gofarming.entity.Bid;
@@ -37,6 +38,15 @@ public class BuyerBean implements Serializable {
     private String bidCurrency;
     private String bidLocation;
     private String bidDescription;
+    private String noteTitle;
+    private String noteNote;
+
+    @ManagedProperty(value = "#{farmingBean}")
+    private FarmingBean farmingBean;
+
+    public void setFarmingBean(FarmingBean farmingBean) {
+        this.farmingBean = farmingBean;
+    }
 
     private final Map<Integer, String> bidStatusMap = new HashMap<>();
 
@@ -146,6 +156,22 @@ public class BuyerBean implements Serializable {
         this.bidEndDate = bidEndDate;
     }
 
+    public String getNoteTitle() {
+        return noteTitle;
+    }
+
+    public void setNoteTitle(String noteTitle) {
+        this.noteTitle = noteTitle;
+    }
+
+    public String getNoteNote() {
+        return noteNote;
+    }
+
+    public void setNoteNote(String noteNote) {
+        this.noteNote = noteNote;
+    }
+
     public void addNewBid() {
         Bid bid = new Bid();
         bid.setProductName(productName);
@@ -162,11 +188,16 @@ public class BuyerBean implements Serializable {
         dao.saveBid(bid);
         fetchBids();
     }
-    
+
     public void notifyFarmer() {
         Notification n = new Notification();
+        n.setCreateDate(new Date());
+        n.setNotification(noteNote);
+        n.setOfferId(farmingBean.getSelectedOffer().getId());
+        n.setStatus(1);
+        n.setBuyerId(1l);
         dao.addNotification(n);
-        
+
     }
 
     public void fetchBids() {

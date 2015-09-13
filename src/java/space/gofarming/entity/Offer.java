@@ -46,6 +46,7 @@ public class Offer implements Serializable {
     private Integer status;
     @Temporal(TemporalType.TIMESTAMP)
     private Date closeDate;
+    private Boolean deliveryAvailable;
 
     public Long getId() {
         return id;
@@ -149,6 +150,14 @@ public class Offer implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Boolean getDeliveryAvailable() {
+        return deliveryAvailable;
+    }
+
+    public void setDeliveryAvailable(Boolean deliveryAvailable) {
+        this.deliveryAvailable = deliveryAvailable;
     }
 
 }

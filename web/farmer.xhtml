@@ -70,6 +70,9 @@
                             <p:column headerText="Price" sortBy="#{offer.price}">
                                 <p:outputLabel value="#{offer.price} #{offer.currency}"/>
                             </p:column>
+                            <p:column headerText="Delivery available" sortBy="#{offer.deliveryAvailable}">
+                                <p:selectBooleanCheckbox value="#{offer.deliveryAvailable}"/>
+                            </p:column>
 <!--                            <p:column headerText="Location" sortBy="{offer.location}">
                                 <p:outputLabel value="{offer.location}"/>
                             </p:column>-->
@@ -133,6 +136,9 @@
 
                     <p:outputLabel for="offerVolume" value="Volume" />                    
                     <p:inputText id="offerVolume" value="#{farmingBean.offerVolume}"/>
+                    
+                    <p:outputLabel for="deliveryAvailable" value="Delivery available" />                    
+                    <p:selectBooleanCheckbox id="deliveryAvailable" value="#{farmingBean.deliveryAvailable}"/>
 
                     <p:outputLabel for="offerVolumeType" value="Volume type" />                    
                     <p:inputText id="offerVolumeType" value="#{farmingBean.offerVolumeType}"/>
@@ -167,8 +173,9 @@
                                    #{farmingBean.selectedOffer.currency}" />
                     <p:outputLabel for="location" value="Location" />                    
                     <p:outputLabel id="location" value="#{farmingBean.selectedOffer.location}" />
-                    <p:outputLabel for="createDate" value="Create date" />                    
-                    <p:outputLabel id="createDate" value="#{farmingBean.selectedOffer.createDate}" />                    
+                    <p:outputLabel for="deliveryAvailable" value="Delivery available" />                    
+                    <p:selectBooleanCheckbox id="deliveryAvailable" value="#{farmingBean.selectedOffer.deliveryAvailable}" />
+                                       
                     <p:outputLabel for="endDate" value="End date" />                    
                     <p:outputLabel id="endDate" value="#{farmingBean.selectedOffer.endDate}" />
                     <p:outputLabel for="status" value="Status" />                    

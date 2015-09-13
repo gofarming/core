@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Hello Farmer</title>
+        <title>Go Farming</title>
         <h:outputStylesheet name="css/default.css" />
     </h:head>
     <h:body>
@@ -13,28 +13,80 @@
             <p:commandLink value="Exit"/>
         </p:panel>
         <p:separator/>
-        <p:tabView>
+        <p:tabView id="mainTabView">
             <p:tab title="Farmers">
-                <p:commandButton value="View farmers"/>
+                <p:commandButton value="Register new Farmer" onclick="PF('registerNewFarmerDialog').show()"/>
+                <p:commandButton value="View farmers" action="#{adminBean.fetchFarmerList()}"
+                                 update=":mainTabView:farmersTableForm"/>
                 <p:separator />
-                <p:dataTable paginator="true" resizableColumns="true" rows="10" 
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             rowsPerPageTemplate="5,10,15,25,50">
-                    <f:facet name="header">
-                        <h:outputText value="Farmers"/>
-                    </f:facet>
-                </p:dataTable>
+                <h:form id="farmersTableForm">
+                    <p:dataTable paginator="true" resizableColumns="true" rows="10" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="5,10,15,25,50"
+                                 value="#{adminBean.farmerList}" var="farmer">
+                        <f:facet name="header">
+                            <h:outputText value="Farmers"/>
+                        </f:facet>
+                        <p:column headerText="Full name">
+                            <p:outputLabel value="#{farmer.fullname}"/>
+                        </p:column>
+                        <p:column headerText="Location">
+                            <p:outputLabel value="#{farmer.location}"/>
+                        </p:column>
+                        <p:column headerText="Contact number">
+                            <p:outputLabel value="#{farmer.contactNumber}"/>
+                        </p:column>
+                        <p:column headerText="Email">
+                            <p:outputLabel value="#{farmer.email}"/>
+                        </p:column>
+                        <p:column headerText="Register date">
+                            <p:outputLabel value="#{farmer.registerDate}"/>
+                        </p:column>
+                        <p:column headerText="Status">
+                            <p:outputLabel value="#{farmer.status}"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Change staus"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
             </p:tab>
             <p:tab title="Buyers">
-                <p:commandButton value="View Buyers"/>
+                <p:commandButton value="Register new Buyer" onclick="PF('registerNewBuyerDialog').show()"/>
+                <p:commandButton value="View Buyers" action="#{adminBean.fetchBuyerList()}"
+                                 update=":mainTabView:buyersTableForm"/>
                 <p:separator />
-                <p:dataTable paginator="true" resizableColumns="true" rows="10" 
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             rowsPerPageTemplate="5,10,15,25,50">
-                    <f:facet name="header">
-                        <h:outputText value="Buyers"/>
-                    </f:facet>
-                </p:dataTable>
+                <h:form id="buyersTableForm">
+                    <p:dataTable paginator="true" resizableColumns="true" rows="10" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="5,10,15,25,50"
+                                 value="#{adminBean.farmerList}" var="buyer">
+                        <f:facet name="header">
+                            <h:outputText value="Buyers"/>
+                        </f:facet>
+                        <p:column headerText="Full name">
+                            <p:outputLabel value="#{buyer.fullname}"/>
+                        </p:column>
+                        <p:column headerText="Location">
+                            <p:outputLabel value="#{buyer.location}"/>
+                        </p:column>
+                        <p:column headerText="Contact number">
+                            <p:outputLabel value="#{buyer.contactNumber}"/>
+                        </p:column>
+                        <p:column headerText="Email">
+                            <p:outputLabel value="#{buyer.email}"/>
+                        </p:column>
+                        <p:column headerText="Register date">
+                            <p:outputLabel value="#{buyer.registerDate}"/>
+                        </p:column>
+                        <p:column headerText="Status">
+                            <p:outputLabel value="#{buyer.status}"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Change staus"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
             </p:tab>
             <p:tab title="Statistics">
                 <p:commandButton value="View Buyers"/>
@@ -59,6 +111,58 @@
                 </p:dataTable>
             </p:tab>
         </p:tabView>
+
+        <p:dialog id="registerNewFarmerDialog" 
+                  widgetVar="registerNewFarmerDialog" hideEffect="fold" position="center" dynamic="true"
+                  header="Register new Farmer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+            <h:form id="notifyForm">
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="farmerFullname" value="Full name"/>
+                    <p:inputText id="farmerFullname" value="#{adminBean.farmerFullname}"/>
+
+                    <p:outputLabel for="farmerAddress" value="Address"/>
+                    <p:inputText id="farmerAddress" value="#{adminBean.farmerLocation}"/>
+
+                    <p:outputLabel for="farmerEmail" value="Email"/>
+                    <p:inputText id="farmerEmail" value="#{adminBean.farmerEmail}"/>
+
+                    <p:outputLabel for="farmerContactNumber" value="Contact number"/>
+                    <p:inputText id="farmerContactNumber" value="#{adminBean.farmerContactNumber}"/>
+
+                    <p:commandButton onclick="PF('registerNewFarmerDialog').hide()" 
+                                     action="#{adminBean.addFarmer()}"
+                                     update=":mainTabView:farmersTableForm"
+                                     value="Register"/>
+                    <p:commandButton onclick="PF('registerNewFarmerDialog').hide()" value="Close"/>
+                </h:panelGrid>               
+            </h:form>
+        </p:dialog>
+
+        <p:dialog id="registerNewBuyerDialog" 
+                  widgetVar="registerNewBuyerDialog" hideEffect="fold" position="center" dynamic="true"
+                  header="Register new Buyer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+            <h:form id="notifyForm">
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="buyerFullname" value="Full name"/>
+                    <p:inputText id="buyerFullname" value="#{adminBean.buyerFullname}"/>
+
+                    <p:outputLabel for="buyerAddress" value="Address"/>
+                    <p:inputText id="buyerAddress" value="#{adminBean.buyerLocation}"/>
+
+                    <p:outputLabel for="buyerEmail" value="Email"/>
+                    <p:inputText id="buyerEmail" value="#{adminBean.buyerEmail}"/>
+
+                    <p:outputLabel for="buyerContactNumber" value="Contact number"/>
+                    <p:inputText id="buyerContactNumber" value="#{adminBean.buyerContactNumber}"/>
+
+                    <p:commandButton onclick="PF('registerNewBuyerDialog').hide()" 
+                                     action="#{adminBean.addBuyer()}"
+                                     update=":mainTabView:buyersTableForm"
+                                     value="Register"/>
+                    <p:commandButton onclick="PF('registerNewBuyerDialog').hide()" value="Close"/>
+                </h:panelGrid>               
+            </h:form>
+        </p:dialog>
 
     </h:body>
 </html>

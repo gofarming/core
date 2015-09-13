@@ -4,12 +4,12 @@ body {
     font-size: 85% !important;             
 }
 .ui-panel-grid td {
-    padding: 1px;
+    /*padding: 1px;*/
     font-family: Helvetica, sans-serif !important;
 }
 
 .ui-panel-grid {
-    padding: 1px !important;
+    /*padding: 1px !important;*/
     font-family: Helvetica, sans-serif !important;
 }
 
