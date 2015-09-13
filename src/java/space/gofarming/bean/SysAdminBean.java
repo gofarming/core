@@ -7,7 +7,9 @@ package space.gofarming.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -21,18 +23,25 @@ import space.gofarming.entity.Farmer;
  */
 @ManagedBean
 @SessionScoped
-public class AdminBean implements Serializable {
+public class SysAdminBean implements Serializable {
 
     private String farmerFullname, farmerContactNumber, farmerEmail, farmerLocation;
     private String buyerFullname, buyerContactNumber, buyerEmail, buyerLocation;
     private AdminDao dao;
     private List<Farmer> farmerList;
     private List<Buyer> buyerList;
+    private Map<Integer, String> statusMap = new HashMap<>();
+
+    {
+        statusMap.put(0, "New");
+        statusMap.put(1, "Active");
+        statusMap.put(2, "Blocked");
+    }
 
     /**
      * Creates a new instance of AdminBean
      */
-    public AdminBean() {
+    public SysAdminBean() {
     }
 
     @PostConstruct
@@ -150,6 +159,13 @@ public class AdminBean implements Serializable {
 
     public void fetchBuyerList() {
         this.buyerList = dao.fetchBuyers();
+    }
+
+    public String statusDesc(Integer code) {
+        if (statusMap.containsKey(code)) {
+            return statusMap.get(code);
+        }
+        return "Unknown";
     }
 
 }

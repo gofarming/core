@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Hello Farmer</title>
+        <h:outputStylesheet name="css/default.css" />
+    </h:head>
+    <h:body>
+        <h:panelGrid id="headerGrid" columns="2" width="100%" >
+            <p:panel>
+                <p:ajaxStatus style="display:block; width: 200px">
+                    <f:facet name="default">
+                        <h:outputText value="" />
+                    </f:facet>
+                    <f:facet name="start">
+                        <h:outputText value="Executing request" />
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" onerror="PF('errorDialog').hide()"/>
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                
+                    <p:graphicImage value="/images/loading.gif"/>
+                </p:dialog>
+                <p:dialog widgetVar="errorDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                
+                    <p:outputLabel value="Ошибка! Повторите запрос снова."/>
+                </p:dialog>
+            </p:panel>                
+        </h:panelGrid>  
+        <p:separator/>
+        <p:panel header="Hello Farmer" footer="Go Farming">
+            <p:tabView id="mainTabView">
+                <p:tab title="Notifications">
+                    <h:form>
+                        <p:commandButton value="Notifications" action="#{farmingBean.fetchNotifications()}"/>
+                    </h:form>
+                    <p:separator/>
+                    <p:dataTable paginator="true" resizableColumns="true" rows="10" 
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="5,10,15,25,50">
+
+                    </p:dataTable>
+                </p:tab>
+                <p:tab title="Offers">
+                    <p:commandButton value="Create offer" onclick="PF('addNewOfferDialog').show()"/>
+                    <p:commandButton value="My offers"
+                                     action="#{farmingBean.fetchOffers()}"
+                                     update=":mainTabView:offersTableForm"/>
+                    <p:separator/>
+                    <h:form id="offersTableForm">
+                        <p:dataTable paginator="true" resizableColumns="true" rows="10"
+                                     var="offer" value="#{farmingBean.offerList}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     rowsPerPageTemplate="5,10,15,25,50">
+                            <f:facet name="header">
+                                <h:outputText value="Offers"/>
+                            </f:facet>
+                            <p:column headerText="Name" sortBy="#{offer.productName}">
+                                <p:outputLabel value="#{offer.productName}"/>
+                            </p:column>
+                            <p:column headerText="Price" sortBy="#{offer.price}">
+                                <p:outputLabel value="#{offer.price} #{offer.currency}"/>
+                            </p:column>
+                            <p:column headerText="Delivery available" sortBy="#{offer.deliveryAvailable}">
+                                <p:selectBooleanCheckbox value="#{offer.deliveryAvailable}"/>
+                            </p:column>
+<!--                            <p:column headerText="Location" sortBy="{offer.location}">
+                                <p:outputLabel value="{offer.location}"/>
+                            </p:column>-->
+                            <!--                            <p:column headerText="Create date" sortBy="{offer.createDate}">
+                                                            <p:outputLabel value="{offer.createDate}"/>
+                                                        </p:column>
+                                                        <p:column headerText="End date" sortBy="{offer.endDate}">
+                                                            <p:outputLabel value="{offer.endDate}"/>
+                                                        </p:column>-->
+                            <p:column headerText="Status">
+                                <p:outputLabel value="#{farmingBean.offerStatusDescription(offer)}"/>
+                            </p:column>
+                            <p:column headerText="">
+                                <p:commandButton value="Close" action="#{farmingBean.closeOffer(offer)}"
+                                                 update=":mainTabView:offersTableForm"/>
+                            </p:column>
+                            <p:column headerText="">
+                                <p:commandButton value="Details" action="#{farmingBean.selectOffer(offer)}"
+                                                 oncomplete="PF('offerDetailsDialog').show()"
+                                                 update=":offerDetailsForm"/>
+                            </p:column>
+                            <p:column headerText="">
+                                <p:commandButton value="Delete" action="#{farmingBean.deleteOffer(offer)}"
+                                                 update=":mainTabView:offersTableForm"
+                                                 />
+                                                 <!--disabled="{offer.status != 1}"-->
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:tab>
+            </p:tabView>
+        </p:panel>
+
+        <p:dialog id="addNewOfferDialog" 
+                  widgetVar="addNewOfferDialog" hideEffect="fold" position="center" dynamic="true"
+                  header="Create new offer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+            <h:form id="addNewOfferForm">
+                <h:panelGrid columns="2" styleClass="panelGridNoBorder" >                                       
+                    <p:outputLabel for="productName" value="Product" />                    
+                    <p:selectOneMenu id="productName" value="#{farmingBean.productName}">
+                        <f:selectItem itemLabel="Apple" itemValue="Apple"/>
+                        <f:selectItem itemLabel="Appricot" itemValue="Appricot"/>
+                        <f:selectItem itemLabel="Pear" itemValue="Pear"/>
+                        <f:selectItem itemLabel="Ruspberry  " itemValue="Ruspberry"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="offerDescription" value="Description" />                    
+                    <p:inputTextarea cols="50" rows="5" 
+                                     id="offerDescription" value="#{farmingBean.offerDescription}"/>
+
+                    <p:outputLabel for="offerPrice" value="Price" />                    
+                    <p:inputText id="offerPrice" value="#{farmingBean.offerPrice}"/>
+
+                    <p:outputLabel for="offerCurrency" value="Currency" />                    
+                    <p:selectOneMenu id="offerCurrency" value="#{farmingBean.offerCurrency}">
+                        <f:selectItem itemLabel="USD" itemValue="USD"/>
+                        <f:selectItem itemLabel="EUR" itemValue="EUR"/>
+                        <f:selectItem itemLabel="RUB" itemValue="RUB"/>
+                        <f:selectItem itemLabel="KGZ" itemValue="KGZ"/>
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="offerVolume" value="Volume" />                    
+                    <p:inputText id="offerVolume" value="#{farmingBean.offerVolume}"/>
+                    
+                    <p:outputLabel for="deliveryAvailable" value="Delivery available" />                    
+                    <p:selectBooleanCheckbox id="deliveryAvailable" value="#{farmingBean.deliveryAvailable}"/>
+
+                    <p:outputLabel for="offerVolumeType" value="Volume type" />                    
+                    <p:inputText id="offerVolumeType" value="#{farmingBean.offerVolumeType}"/>
+
+                    <p:outputLabel for="offerLocation" value="Location" />                    
+                    <p:inputText id="offerLocation" value="#{farmingBean.offerLocation}"/>
+
+                    <p:outputLabel for="dateUntil" value="Date until" />                    
+                    <p:calendar id="dateUntil" showOn="button" showButtonPanel="true"
+                                value="#{farmingBean.offerEndDate}"
+                                pattern="MM/dd/yyyy" />
+                    <p:commandButton onclick="PF('addNewOfferDialog').hide()" 
+                                     action="#{farmingBean.addNewOffer()}"
+                                     update=":mainTabView:offersTableForm"
+                                     value="Create"/>
+                    <p:commandButton onclick="PF('addNewOfferDialog').hide()" value="Close"/>
+                </h:panelGrid>               
+            </h:form>
+        </p:dialog>
+
+        <h:form id="offerDetailsForm">
+            <p:dialog id="offerDetailsDialog" width="40%"
+                      widgetVar="offerDetailsDialog" hideEffect="fold" position="center" dynamic="true"
+                      header="Offer details for #{farmingBean.selectedOffer.productName}" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+                <h:panelGrid columns="2" styleClass="panelGridNoBorder" >                                       
+                    <p:outputLabel for="productName" value="Product" />                    
+                    <p:outputLabel id="productName" value="#{farmingBean.selectedOffer.productName}" />                    
+                    <p:outputLabel for="description" value="Description" />                    
+                    <p:outputLabel id="description" value="#{farmingBean.selectedOffer.description}" />                    
+                    <p:outputLabel for="price" value="Price" />                    
+                    <p:outputLabel id="price" value="#{farmingBean.selectedOffer.price} 
+                                   #{farmingBean.selectedOffer.currency}" />
+                    <p:outputLabel for="location" value="Location" />                    
+                    <p:outputLabel id="location" value="#{farmingBean.selectedOffer.location}" />
+                    <p:outputLabel for="deliveryAvailable" value="Delivery available" />                    
+                    <p:selectBooleanCheckbox id="deliveryAvailable" value="#{farmingBean.selectedOffer.deliveryAvailable}" />
+                                       
+                    <p:outputLabel for="endDate" value="End date" />                    
+                    <p:outputLabel id="endDate" value="#{farmingBean.selectedOffer.endDate}" />
+                    <p:outputLabel for="status" value="Status" />                    
+                    <p:outputLabel id="status" value="#{farmingBean.offerStatusDescription(farmingBean.selectedOffer)}" />
+
+                    <p:commandButton onclick="PF('offerDetailsDialog').hide()" value="Close"/>
+                </h:panelGrid>               
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

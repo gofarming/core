@@ -8,14 +8,11 @@ package space.gofarming.dao;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import space.gofarming.entity.Notification;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import space.gofarming.entity.Bid;
 import space.gofarming.entity.Buyer;
 import space.gofarming.entity.Farmer;
-import space.gofarming.entity.Offer;
 
 /**
  *

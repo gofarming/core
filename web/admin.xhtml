@@ -9,28 +9,52 @@
         <h:outputStylesheet name="css/default.css" />
     </h:head>
     <h:body>
-        <p:panel>
-            <p:commandLink value="Exit"/>
-        </p:panel>
+        <h:panelGrid id="headerGrid" columns="2" width="100%" >
+            <p:panel>
+                <h:form>            
+                    <p:commandButton value="Logout" action="#{loginBean.logout()}" title="Click to quit Go Farmer"/>
+                </h:form>
+            </p:panel>
+            <p:panel>
+                <p:ajaxStatus style="display:block; width: 200px">
+                    <f:facet name="default">
+                        <h:outputText value="" />
+                    </f:facet>
+                    <f:facet name="start">
+                        <h:outputText value="Executing request" />
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus>
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" onerror="PF('errorDialog').hide()"/>
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                
+                    <p:graphicImage value="/images/loading.gif"/>
+                </p:dialog>
+                <p:dialog widgetVar="errorDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                
+                    <p:outputLabel value="Ошибка! Повторите запрос снова."/>
+                </p:dialog>
+            </p:panel>                
+        </h:panelGrid>  
         <p:separator/>
         <p:tabView id="mainTabView">
             <p:tab title="Farmers">
                 <p:commandButton value="Register new Farmer" onclick="PF('registerNewFarmerDialog').show()"/>
-                <p:commandButton value="View farmers" action="#{adminBean.fetchFarmerList()}"
+                <p:commandButton value="View Farmers" action="#{sysAdminBean.fetchFarmerList()}"
                                  update=":mainTabView:farmersTableForm"/>
                 <p:separator />
                 <h:form id="farmersTableForm">
                     <p:dataTable paginator="true" resizableColumns="true" rows="10" 
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                  rowsPerPageTemplate="5,10,15,25,50"
-                                 value="#{adminBean.farmerList}" var="farmer">
+                                 value="#{sysAdminBean.farmerList}" var="farmer">
                         <f:facet name="header">
                             <h:outputText value="Farmers"/>
                         </f:facet>
                         <p:column headerText="Full name">
                             <p:outputLabel value="#{farmer.fullname}"/>
                         </p:column>
-                        <p:column headerText="Location">
+                        <p:column headerText="Address">
                             <p:outputLabel value="#{farmer.location}"/>
                         </p:column>
                         <p:column headerText="Contact number">
@@ -43,31 +67,34 @@
                             <p:outputLabel value="#{farmer.registerDate}"/>
                         </p:column>
                         <p:column headerText="Status">
-                            <p:outputLabel value="#{farmer.status}"/>
+                            <p:outputLabel value="#{sysAdminBean.statusDesc(farmer.status)}"/>
                         </p:column>
                         <p:column>
                             <p:commandButton value="Change staus"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Deactivate"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
             </p:tab>
             <p:tab title="Buyers">
                 <p:commandButton value="Register new Buyer" onclick="PF('registerNewBuyerDialog').show()"/>
-                <p:commandButton value="View Buyers" action="#{adminBean.fetchBuyerList()}"
+                <p:commandButton value="View Buyers" action="#{sysAdminBean.fetchBuyerList()}"
                                  update=":mainTabView:buyersTableForm"/>
                 <p:separator />
                 <h:form id="buyersTableForm">
                     <p:dataTable paginator="true" resizableColumns="true" rows="10" 
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                  rowsPerPageTemplate="5,10,15,25,50"
-                                 value="#{adminBean.farmerList}" var="buyer">
+                                 value="#{sysAdminBean.buyerList}" var="buyer">
                         <f:facet name="header">
                             <h:outputText value="Buyers"/>
                         </f:facet>
                         <p:column headerText="Full name">
                             <p:outputLabel value="#{buyer.fullname}"/>
                         </p:column>
-                        <p:column headerText="Location">
+                        <p:column headerText="Address">
                             <p:outputLabel value="#{buyer.location}"/>
                         </p:column>
                         <p:column headerText="Contact number">
@@ -80,57 +107,43 @@
                             <p:outputLabel value="#{buyer.registerDate}"/>
                         </p:column>
                         <p:column headerText="Status">
-                            <p:outputLabel value="#{buyer.status}"/>
+                            <p:outputLabel value="#{sysAdminBean.statusDesc(buyer.status)}"/>
                         </p:column>
                         <p:column>
                             <p:commandButton value="Change staus"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Deactivate"/>
                         </p:column>
                     </p:dataTable>
                 </h:form>
             </p:tab>
             <p:tab title="Statistics">
-                <p:commandButton value="View Buyers"/>
+                <p:commandButton value="Bids &amp; Offers"/>
                 <p:separator />
-                <p:dataTable paginator="true" resizableColumns="true" rows="10" 
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             rowsPerPageTemplate="5,10,15,25,50">
-                    <f:facet name="header">
-                        <h:outputText value="Statistics"/>
-                    </f:facet>
-                </p:dataTable>
-            </p:tab>
-            <p:tab title="Logs">
-                <p:commandButton value="View Buyers"/>
-                <p:separator />
-                <p:dataTable paginator="true" resizableColumns="true" rows="10" 
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             rowsPerPageTemplate="5,10,15,25,50">
-                    <f:facet name="header">
-                        <h:outputText value="Logs"/>
-                    </f:facet>
-                </p:dataTable>
+                <p:chart type="line" model="#{chartView.areaModel}" style="height:300px" />
             </p:tab>
         </p:tabView>
 
         <p:dialog id="registerNewFarmerDialog" 
                   widgetVar="registerNewFarmerDialog" hideEffect="fold" position="center" dynamic="true"
                   header="Register new Farmer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
-            <h:form id="notifyForm">
+            <h:form id="registerNewFarmerDialogForm">
                 <h:panelGrid columns="2">
                     <p:outputLabel for="farmerFullname" value="Full name"/>
-                    <p:inputText id="farmerFullname" value="#{adminBean.farmerFullname}"/>
+                    <p:inputText id="farmerFullname" value="#{sysAdminBean.farmerFullname}"/>
 
                     <p:outputLabel for="farmerAddress" value="Address"/>
-                    <p:inputText id="farmerAddress" value="#{adminBean.farmerLocation}"/>
+                    <p:inputText id="farmerAddress" value="#{sysAdminBean.farmerLocation}"/>
 
                     <p:outputLabel for="farmerEmail" value="Email"/>
-                    <p:inputText id="farmerEmail" value="#{adminBean.farmerEmail}"/>
+                    <p:inputText id="farmerEmail" value="#{sysAdminBean.farmerEmail}"/>
 
                     <p:outputLabel for="farmerContactNumber" value="Contact number"/>
-                    <p:inputText id="farmerContactNumber" value="#{adminBean.farmerContactNumber}"/>
+                    <p:inputText id="farmerContactNumber" value="#{sysAdminBean.farmerContactNumber}"/>
 
                     <p:commandButton onclick="PF('registerNewFarmerDialog').hide()" 
-                                     action="#{adminBean.addFarmer()}"
+                                     action="#{sysAdminBean.addFarmer()}"
                                      update=":mainTabView:farmersTableForm"
                                      value="Register"/>
                     <p:commandButton onclick="PF('registerNewFarmerDialog').hide()" value="Close"/>
@@ -141,22 +154,22 @@
         <p:dialog id="registerNewBuyerDialog" 
                   widgetVar="registerNewBuyerDialog" hideEffect="fold" position="center" dynamic="true"
                   header="Register new Buyer" resizable="false" modal="true" closeOnEscape="true" closable="true" >
-            <h:form id="notifyForm">
+            <h:form id="registerNewBuyerDialogForm">
                 <h:panelGrid columns="2">
                     <p:outputLabel for="buyerFullname" value="Full name"/>
-                    <p:inputText id="buyerFullname" value="#{adminBean.buyerFullname}"/>
+                    <p:inputText id="buyerFullname" value="#{sysAdminBean.buyerFullname}"/>
 
                     <p:outputLabel for="buyerAddress" value="Address"/>
-                    <p:inputText id="buyerAddress" value="#{adminBean.buyerLocation}"/>
+                    <p:inputText id="buyerAddress" value="#{sysAdminBean.buyerLocation}"/>
 
                     <p:outputLabel for="buyerEmail" value="Email"/>
-                    <p:inputText id="buyerEmail" value="#{adminBean.buyerEmail}"/>
+                    <p:inputText id="buyerEmail" value="#{sysAdminBean.buyerEmail}"/>
 
                     <p:outputLabel for="buyerContactNumber" value="Contact number"/>
-                    <p:inputText id="buyerContactNumber" value="#{adminBean.buyerContactNumber}"/>
+                    <p:inputText id="buyerContactNumber" value="#{sysAdminBean.buyerContactNumber}"/>
 
                     <p:commandButton onclick="PF('registerNewBuyerDialog').hide()" 
-                                     action="#{adminBean.addBuyer()}"
+                                     action="#{sysAdminBean.addBuyer()}"
                                      update=":mainTabView:buyersTableForm"
                                      value="Register"/>
                     <p:commandButton onclick="PF('registerNewBuyerDialog').hide()" value="Close"/>
