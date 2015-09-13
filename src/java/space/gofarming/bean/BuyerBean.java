@@ -40,6 +40,7 @@ public class BuyerBean implements Serializable {
     private String bidDescription;
     private String noteTitle;
     private String noteNote;
+    private Boolean preferedDelivery;
 
     @ManagedProperty(value = "#{farmingBean}")
     private FarmingBean farmingBean;
@@ -172,6 +173,14 @@ public class BuyerBean implements Serializable {
         this.noteNote = noteNote;
     }
 
+    public Boolean getPreferedDelivery() {
+        return preferedDelivery;
+    }
+
+    public void setPreferedDelivery(Boolean preferedDelivery) {
+        this.preferedDelivery = preferedDelivery;
+    }
+
     public void addNewBid() {
         Bid bid = new Bid();
         bid.setProductName(productName);
@@ -185,6 +194,7 @@ public class BuyerBean implements Serializable {
         bid.setVolumeType(bidVolumeType);
         bid.setDescription(bidDescription);
         bid.setStatus(1);
+        bid.setPreferedDelivery(preferedDelivery);
         dao.saveBid(bid);
         fetchBids();
     }

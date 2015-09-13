@@ -54,8 +54,8 @@
                             <f:facet name="header">
                                 <h:outputText value="Offers"/>
                             </f:facet>
-                            <p:panel header="#{offer.productName}" style="text-align: center">
-                                <p:panelGrid columns="1" style="width:100%">
+                            <p:panel header="#{offer.productName}" style="text-align: center; ">
+                                <p:panelGrid columns="1" style="width:100%;background-color: gray;">
                                     <p:outputLabel value="#{offer.productName}"/>
                                     <p:outputLabel value="#{offer.description}"/>
                                     <p:outputLabel value="#{offer.price} #{offer.currency}"/>
@@ -154,7 +154,11 @@
                     <p:outputLabel for="bidLocation" value="Location" />                    
                     <p:inputText id="bidLocation" value="#{buyerBean.bidLocation}"/>
 
+                    <p:outputLabel for="preferedDelivery" value="Prefered delivery" />                    
+                    <p:selectBooleanCheckbox id="preferedDelivery" value="#{buyerBean.preferedDelivery}"/>
+
                     <p:outputLabel for="dateUntil" value="Date until" />                    
+
                     <p:calendar id="dateUntil" showOn="button" showButtonPanel="true"
                                 value="#{buyerBean.bidEndDate}"
                                 pattern="MM/dd/yyyy" />
