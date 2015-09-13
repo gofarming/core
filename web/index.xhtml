@@ -33,15 +33,13 @@
                       widgetVar="loginDialog" hideEffect="fold" position="center" dynamic="true"
                       header="Login" resizable="false" modal="true" closeOnEscape="true" closable="true" >
                 <h:form>
-                    <p:panel style="width:600px;">
+                    <p:panel style="width:300px;">
                         <!--<p:graphicImage value="/images/newlogo.png"/>-->
                         <p:spacer height="10px" width="100%" />
                         <h:panelGrid columns="2" styleClass="authPanel">
-                            <p:outputLabel value="Username"/>
-                            <p:inputText value="#{loginBean.username}"/>
-                            <p:outputLabel value="Password"/>
-                            <p:inputText type="password" value="#{loginBean.password}" autocomplete="false"/>
-                            <p:commandButton ajax="false" value="Login" action="#{loginBean.login()}" />
+                            <p:inputText label="Username" value="#{loginBean.username}"/>
+                            <p:inputText label="Password" type="password" value="#{loginBean.password}" autocomplete="false"/>
+                            <p:commandButton ajax="false" value="Login" action="#{loginBean.login()}" style="float: center;"/>
                         </h:panelGrid>
                     </p:panel>
                 </h:form>
