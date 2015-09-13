@@ -49,6 +49,19 @@ public class GoFarmingDao {
         return null;
     }
 
+    public List<Notification> fetchNotifications() {
+        try {
+            Session mySession = HibernateUtil.getSessionFactory().openSession();
+            Query q = mySession.createQuery("from Notification as b");
+            List<Notification> list = (List<Notification>) q.list();
+            mySession.close();
+            return list;
+        } catch (Exception e) {
+            LOG.log(Level.INFO, e.getMessage());
+        }
+        return null;
+    }
+
     public void saveOffer(Offer offer) {
         try {
             Session mySession = HibernateUtil.getSessionFactory().openSession();
@@ -135,6 +148,19 @@ public class GoFarmingDao {
             tx.commit();
             mySession.flush();
             mySession.close();
+        } catch (Exception e) {
+            LOG.log(Level.INFO, e.getMessage());
+        }
+    }
+
+    public void deleteNotification(Notification note) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            Transaction tx = session.beginTransaction();
+            session.delete(note);
+            tx.commit();
+            session.flush();
+            session.close();
         } catch (Exception e) {
             LOG.log(Level.INFO, e.getMessage());
         }

@@ -16,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import space.gofarming.dao.GoFarmingDao;
 import space.gofarming.entity.Bid;
+import space.gofarming.entity.Notification;
 import space.gofarming.entity.Offer;
 
 /**
@@ -41,6 +42,7 @@ public class FarmingBean implements Serializable {
     private String offerDescription;
     private Offer selectedOffer;
     private Boolean deliveryAvailable;
+    private List<Notification> noteList;
 
     private final Map<Integer, String> offerStatusMap = new HashMap<>();
 
@@ -180,6 +182,14 @@ public class FarmingBean implements Serializable {
         this.deliveryAvailable = deliveryAvailable;
     }
 
+    public List<Notification> getNoteList() {
+        return noteList;
+    }
+
+    public void setNoteList(List<Notification> noteList) {
+        this.noteList = noteList;
+    }
+
     public void addNewOffer() {
         Offer offer = new Offer();
         offer.setProductName(productName);
@@ -218,11 +228,16 @@ public class FarmingBean implements Serializable {
     }
 
     public void fetchNotifications() {
-
+        this.noteList = dao.fetchNotifications();
     }
 
     public void selectOffer(Offer offer) {
         this.selectedOffer = offer;
+    }
+    
+    public void deleteNotification(Notification note) {
+        dao.deleteNotification(note);
+        fetchNotifications();
     }
 
 }

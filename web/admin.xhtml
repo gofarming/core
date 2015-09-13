@@ -11,11 +11,6 @@
     <h:body>
         <h:panelGrid id="headerGrid" columns="2" width="100%" >
             <p:panel>
-                <h:form>            
-                    <p:commandButton value="Logout" action="#{loginBean.logout()}" title="Click to quit Go Farmer"/>
-                </h:form>
-            </p:panel>
-            <p:panel>
                 <p:ajaxStatus style="display:block; width: 200px">
                     <f:facet name="default">
                         <h:outputText value="" />
@@ -34,7 +29,12 @@
                 <p:dialog widgetVar="errorDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                
                     <p:outputLabel value="Ошибка! Повторите запрос снова."/>
                 </p:dialog>
-            </p:panel>                
+            </p:panel>
+            <p:panel style="text-align: right">
+                <h:form>            
+                    <p:commandButton value="Logout" action="#{loginBean.logout()}" title="Click to quit Go Farmer"/>
+                </h:form>
+            </p:panel>
         </h:panelGrid>  
         <p:separator/>
         <p:tabView id="mainTabView">
@@ -122,6 +122,7 @@
                 <p:commandButton value="Bids &amp; Offers"/>
                 <p:separator />
                 <p:chart type="line" model="#{chartView.areaModel}" style="height:300px" />
+                <p:chart type="bubble" model="#{bubbleView.bubbleModel1}" />
             </p:tab>
         </p:tabView>
 

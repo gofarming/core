@@ -11,11 +11,6 @@
     <h:body>
         <h:panelGrid id="headerGrid" columns="2" width="100%" >
             <p:panel>
-                <h:form>            
-                    <p:commandButton value="Logout" action="#{loginBean.logout()}" title="Click to quit Go Farmer"/>
-                </h:form>
-            </p:panel>
-            <p:panel>
                 <p:ajaxStatus style="display:block; width: 200px">
                     <f:facet name="default">
                         <h:outputText value="" />
@@ -34,10 +29,15 @@
                 <p:dialog widgetVar="errorDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">                
                     <p:outputLabel value="Ошибка! Повторите запрос снова."/>
                 </p:dialog>
-            </p:panel>                
+            </p:panel>  
+            <p:panel style="text-align: right">
+                <h:form>            
+                    <p:commandButton value="Logout" action="#{loginBean.logout()}" title="Click to quit Go Farmer"/>
+                </h:form>
+            </p:panel>
         </h:panelGrid> 
         <p:separator/>
-        <p:panel header="Hello Buyer" footer="Go Farming">
+        
             <p:tabView id="mainTabView">
                 <p:tab title="Offers">
                     <p:commandButton value="Offers"
@@ -54,18 +54,27 @@
                             <f:facet name="header">
                                 <h:outputText value="Offers"/>
                             </f:facet>
-                            <p:panel header="#{offer.productName}" style="text-align: center; ">
-                                <p:panelGrid columns="1" style="width:100%;background-color: gray;">
-                                    <p:outputLabel value="#{offer.productName}"/>
-                                    <p:outputLabel value="#{offer.description}"/>
-                                    <p:outputLabel value="#{offer.price} #{offer.currency}"/>
-                                    <p:outputLabel value="#{offer.location}"/>
-                                    <p:selectBooleanCheckbox value="#{offer.deliveryAvailable}"/>
-                                    <p:outputLabel value="#{offer.endDate}"/>
-                                    <p:outputLabel value="#{farmingBean.offerStatusDescription(offer)}"/>
-                                    <p:commandButton value="Notify" action="#{farmingBean.selectOffer(offer)}"
-                                                     oncomplete="PF('notifyDialog').show()"/>
+                            <p:panel header="#{offer.productName}">
+                                <p:panelGrid columns="2" style="width:100%; vertical-align: top;">
+                                    <p:outputLabel for="productName" value="Product: "/>
+                                    <p:outputLabel id="productName" value="#{offer.productName}"/>
+                                    <p:outputLabel for="description" value="Description: "/>
+                                    <p:outputLabel id="description" value="#{offer.description}"/>
+                                    <p:outputLabel for="price" value="Price: "/>
+                                    <p:outputLabel id="price" value="#{offer.price} #{offer.currency}"/>
+                                    <p:outputLabel for="location" value="Location: "/>
+                                    <p:outputLabel id="location" value="#{offer.location}"/>
+                                    <p:outputLabel for="deliveryAvailable" value="Delivery available: "/>
+                                    <p:selectBooleanCheckbox id="deliveryAvailable" 
+                                                             disabled="true"
+                                                             value="#{offer.deliveryAvailable}"/>
+                                    <p:outputLabel for="endDate" value="End data: "/>
+                                    <p:outputLabel id="endDate" value="#{offer.endDate}"/>
+                                    <p:outputLabel for="status" value="Status: "/>
+                                    <p:outputLabel id="status" value="#{farmingBean.offerStatusDescription(offer)}"/>
                                 </p:panelGrid>
+                                <p:commandButton value="Notify" action="#{farmingBean.selectOffer(offer)}"
+                                                 oncomplete="PF('notifyDialog').show()"/>
                             </p:panel>
                         </p:dataGrid>
                     </h:form>
@@ -115,7 +124,7 @@
                     </h:form>
                 </p:tab>
             </p:tabView>
-        </p:panel>
+        
 
         <p:dialog id="addNewBidDialog" 
                   widgetVar="addNewBidDialog" hideEffect="fold" position="center" dynamic="true"
