@@ -7,20 +7,21 @@
     <h:head>
         <title>Hello Buyer</title>
         <h:outputStylesheet name="css/default.css" />
-        <h:outputStylesheet name="css/font-awesome.min.css" />
+        <!--<h:outputStylesheet name="css/font-awesome.min.css" />-->
     </h:head>
     <h:body>
         <h:panelGrid id="headerGrid" cellpadding="5" columns="2" width="100%" >
             <p:panel>
-                <p:ajaxStatus style="display:block; width: 200px">
+                <p:graphicImage value="/images/logo.png" width="100"/>
+                <p:ajaxStatus>
                     <f:facet name="default">
-                        <h:outputText value="" />
+                        <h:outputText value="-" />
                     </f:facet>
                     <f:facet name="start">
                         <h:outputText value="Executing request" />
                     </f:facet>
                     <f:facet name="complete">
-                        <h:outputText value="" />
+                        <h:outputText value="-" />
                     </f:facet>
                 </p:ajaxStatus>
                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" onerror="PF('errorDialog').hide()"/>
@@ -81,8 +82,8 @@
                 </h:form>
             </p:tab>
             <p:tab title="Bids">
-                <p:commandButton value="Create bid" onclick="PF('addNewBidDialog').show()"/>
-                <p:commandButton value="My bids"
+                <p:commandButton value="Create Bid" onclick="PF('addNewBidDialog').show()"/>
+                <p:commandButton value="My Bids"
                                  action="#{buyerBean.fetchBids()}"
                                  update=":mainTabView:bidsTableForm"/>
                 <p:separator/>

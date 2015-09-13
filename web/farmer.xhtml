@@ -11,15 +11,16 @@
     <h:body>
         <h:panelGrid id="headerGrid" cellpadding="5" columns="2" width="100%" >
             <p:panel>
-                <p:ajaxStatus style="display:block; width: 200px">
+                <p:graphicImage value="/images/logo.png" width="100"/>
+                <p:ajaxStatus>
                     <f:facet name="default">
-                        <h:outputText value="" />
+                        <h:outputText value="-" />
                     </f:facet>
                     <f:facet name="start">
                         <h:outputText value="Executing request" />
                     </f:facet>
                     <f:facet name="complete">
-                        <h:outputText value="" />
+                        <h:outputText value="-" />
                     </f:facet>
                 </p:ajaxStatus>
                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" onerror="PF('errorDialog').hide()"/>
@@ -70,8 +71,8 @@
                 </h:form>
             </p:tab>
             <p:tab title="Offers">
-                <p:commandButton value="Create offer" onclick="PF('addNewOfferDialog').show()"/>
-                <p:commandButton value="My offers"
+                <p:commandButton value="Create Offer" onclick="PF('addNewOfferDialog').show()"/>
+                <p:commandButton value="My Offers"
                                  action="#{farmingBean.fetchOffers()}"
                                  update=":mainTabView:offersTableForm"/>
                 <p:separator/>
@@ -126,7 +127,7 @@
 
         <p:dialog id="addNewOfferDialog" 
                   widgetVar="addNewOfferDialog" hideEffect="fold" position="center" dynamic="true"
-                  header="Create new offer" resizable="false" modal="true" closeOnEscape="true" closable="false" >
+                  header="Create New Offer" resizable="false" modal="true" closeOnEscape="true" closable="false" >
             <h:form id="addNewOfferForm">
                 <h:panelGrid columns="2" cellpadding="5" styleClass="panelGridNoBorder" >                                       
                     <p:outputLabel for="productName" value="Product" />                    
@@ -160,7 +161,7 @@
 
                     <p:outputLabel for="deliveryAvailable" value="Delivery available" />                    
                     <p:selectBooleanCheckbox id="deliveryAvailable" value="#{farmingBean.deliveryAvailable}"/>
-                    
+
                     <p:outputLabel for="offerLocation" value="Location" />                    
                     <p:inputText id="offerLocation" value="#{farmingBean.offerLocation}"/>
 
