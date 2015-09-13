@@ -14,7 +14,7 @@
             }
             body {
                 /*background-image: url(images/silenivineyards.jpg);*/
-                 background-image: url("#{resource['images/silenivineyards.jpg']}");
+                background-image: url("#{resource['images/silenivineyards.jpg']}");
                 background-repeat: no-repeat;
                 background-position: 0 0;
                 background-size: cover;
@@ -27,32 +27,38 @@
     </h:head>
     <h:body>
         <center>
-            <h:form>
-                <p:growl id="profileGrowl" showDetail="false" life="3000"/>
-                <p:panel style="width:600px; margin-top: 80px">
-                    <f:facet name="header">
-                        <h:outputText value="Go Farming"/>
-                    </f:facet>
 
-                    <!--<p:graphicImage value="/images/newlogo.png"/>-->
-                    <p:spacer height="10px" width="100%" />
-                    <h:panelGrid columns="2" styleClass="authPanel">
-                        <p:outputLabel value="Username"/>
-                        <p:inputText value="#{loginBean.username}"/>
-                        <p:outputLabel value="Password"/>
-                        <p:inputText type="password" value="#{loginBean.password}" autocomplete="false"/>
-                        <p:commandButton ajax="false" value="Login" action="#{loginBean.login()}" />
-                    </h:panelGrid>
-                </p:panel>
-                <p:panel style="width:600px; margin-top: 80px; background: none; border: none;">
 
-                    <!--<p:graphicImage value="images/newlogo.png"/>-->
-                    <p:commandButton value="Farmer" />
+            <p:dialog id="loginDialog" 
+                      widgetVar="loginDialog" hideEffect="fold" position="center" dynamic="true"
+                      header="Login" resizable="false" modal="true" closeOnEscape="true" closable="true" >
+                <h:form>
+                    <p:panel style="width:600px;">
+                        <!--<p:graphicImage value="/images/newlogo.png"/>-->
+                        <p:spacer height="10px" width="100%" />
+                        <h:panelGrid columns="2" styleClass="authPanel">
+                            <p:outputLabel value="Username"/>
+                            <p:inputText value="#{loginBean.username}"/>
+                            <p:outputLabel value="Password"/>
+                            <p:inputText type="password" value="#{loginBean.password}" autocomplete="false"/>
+                            <p:commandButton ajax="false" value="Login" action="#{loginBean.login()}" />
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </p:dialog>
 
-                    <p:commandButton value="Buyer"/>
-                    <p:separator/>
-                </p:panel>
-            </h:form>
+            <p:panel style="width:600px; margin-top: 80px; background: none; border: none;">
+
+                <!--<p:graphicImage value="images/newlogo.png"/>-->
+                <p:commandButton value="Farmer" /> &bull; 
+
+                <p:commandButton value="Buyer"/> &bull; 
+                <p:commandButton value="Logistics"/> 
+                <p:separator/>
+                <p:commandLink onclick="PF('loginDialog').show()" value="Login"/>
+                &bull;
+                <p:commandLink onclick="PF('loginDialog').show()" value="Register"/>
+            </p:panel>
         </center>
     </h:body>
 </html>

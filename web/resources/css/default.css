@@ -43,7 +43,7 @@ a {
 }
 
 a:hover {
-    color:red;
+    color: green;
 }
 
 .ui-datatable tr.ui-datatable-even:hover, .ui-datatable tr.ui-datatable-odd:hover {
